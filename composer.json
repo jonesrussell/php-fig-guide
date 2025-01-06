@@ -1,0 +1,28 @@
+{
+    "name": "jonesrussell/php-fig-guide",
+    "description": "A practical guide to PHP-FIG standards with examples and best practices",
+    "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.7",
+        "phpunit/phpunit": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "JonesRussell\\PhpFigGuide\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JonesRussell\\PhpFigGuide\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs src tests",
+        "fix-style": "phpcbf src tests"
+    }
+}
