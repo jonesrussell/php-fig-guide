@@ -4,7 +4,8 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": ">=8.1"
+        "php": ">=8.1",
+        "psr/log": "^3.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.7",
@@ -12,11 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "JonesRussell\\PhpFigGuide\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
+            "JonesRussell\\PhpFigGuide\\": "src/",
             "JonesRussell\\PhpFigGuide\\Tests\\": "tests/"
         }
     },
