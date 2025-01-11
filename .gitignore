@@ -3,3 +3,4 @@
 composer.lock
 .php-cs-cache
 .phpunit.cache/
+*.bak

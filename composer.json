@@ -1,20 +1,31 @@
 {
     "name": "jonesrussell/php-fig-guide",
-    "description": "A practical guide to PHP-FIG standards with examples and best practices",
-    "type": "project",
+    "description": "Implementation examples of PHP-FIG PSR standards",
+    "type": "library",
     "license": "MIT",
+    "authors": [
+        {
+            "name": "Russell Jones",
+            "email": "jonesrussell42@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
     "require": {
         "php": ">=8.1",
         "psr/log": "^3.0",
         "psr/cache": "^3.0"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^3.7",
-        "phpunit/phpunit": "^10.0"
+        "phpunit/phpunit": "^10.0",
+        "squizlabs/php_codesniffer": "^3.7"
     },
     "autoload": {
         "psr-4": {
-            "JonesRussell\\PhpFigGuide\\": "src/",
+            "JonesRussell\\PhpFigGuide\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "JonesRussell\\PhpFigGuide\\Tests\\": "tests/"
         }
     },

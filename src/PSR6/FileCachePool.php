@@ -1,35 +1,76 @@
 <?php
 
+/**
+ * Example implementation of PSR-6 Caching Interface.
+ * 
+ * This file implements the CacheItemPoolInterface using the filesystem
+ * as a storage backend.
+ */
+
 namespace JonesRussell\PhpFigGuide\PSR6;
 
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\CacheItemInterface;
 use RuntimeException;
 use InvalidArgumentException;
+use DateTime;
+use JonesRussell\PhpFigGuide\PSR6\CacheItem;
 
+/**
+ * File-based cache pool implementation following PSR-6.
+ * 
+ * This class provides a simple file-based caching system that:
+ * - Stores each cache item in a separate file
+ * - Supports deferred saves
+ * - Handles cache item expiration
+ */
 class FileCachePool implements CacheItemPoolInterface
 {
-    private $directory;
-    private $deferred = [];
+    /**
+     * Directory where cache files are stored.
+     *
+     * @var string
+     */
+    private $_directory;
 
+    /**
+     * Items that are queued for deferred saving.
+     *
+     * @var array<string, CacheItemInterface>
+     */
+    private $_deferred = [];
+
+    /**
+     * Initialize the cache pool with a storage directory.
+     *
+     * @param string $directory Directory path for cache files
+     * @throws RuntimeException If directory cannot be created
+     */
     public function __construct(string $directory)
     {
         if (!is_dir($directory) && !mkdir($directory, 0777, true)) {
             throw new RuntimeException("Cannot create cache directory: {$directory}");
         }
-        $this->directory = $directory;
+        $this->_directory = $directory;
     }
 
+    /**
+     * Returns a Cache Item representing the specified key.
+     *
+     * @param string $key The key for which to return the corresponding Cache Item
+     * @return CacheItemInterface The corresponding Cache Item
+     * @throws InvalidArgumentException If the key string is not legal
+     */
     public function getItem($key): CacheItemInterface
     {
-        $this->validateKey($key);
+        $this->_validateKey($key);
         
-        if (isset($this->deferred[$key])) {
-            return $this->deferred[$key];
+        if (isset($this->_deferred[$key])) {
+            return $this->_deferred[$key];
         }
 
         $item = new CacheItem($key);
-        $path = $this->getPath($key);
+        $path = $this->_getPath($key);
 
         if (file_exists($path)) {
             try {
@@ -48,6 +89,12 @@ class FileCachePool implements CacheItemPoolInterface
         return $item;
     }
 
+    /**
+     * Returns a traversable set of cache items.
+     *
+     * @param array $keys An indexed array of keys of items to retrieve
+     * @return iterable<string, CacheItemInterface> A traversable collection of Cache Items keyed by the cache keys
+     */
     public function getItems(array $keys = []): iterable
     {
         $items = [];
@@ -57,15 +104,27 @@ class FileCachePool implements CacheItemPoolInterface
         return $items;
     }
 
+    /**
+     * Confirms if the cache contains specified cache item.
+     *
+     * @param string $key The key for which to check existence
+     * @return bool True if item exists in the cache and has not expired
+     * @throws InvalidArgumentException If the key string is not legal
+     */
     public function hasItem($key): bool
     {
         return $this->getItem($key)->isHit();
     }
 
+    /**
+     * Deletes all items in the pool.
+     *
+     * @return bool True if the pool was successfully cleared
+     */
     public function clear(): bool
     {
-        $this->deferred = [];
-        $files = glob($this->directory . '/*.cache');
+        $this->_deferred = [];
+        $files = glob($this->_directory . '/*.cache');
         
         if ($files === false) {
             return false;
@@ -80,18 +139,31 @@ class FileCachePool implements CacheItemPoolInterface
         return $success;
     }
 
+    /**
+     * Removes the item from the pool.
+     *
+     * @param string $key The key to delete
+     * @return bool True if the item was successfully removed
+     * @throws InvalidArgumentException If the key string is not legal
+     */
     public function deleteItem($key): bool
     {
-        $this->validateKey($key);
-        unset($this->deferred[$key]);
+        $this->_validateKey($key);
+        unset($this->_deferred[$key]);
         
-        $path = $this->getPath($key);
+        $path = $this->_getPath($key);
         if (file_exists($path)) {
             return unlink($path);
         }
         return true;
     }
 
+    /**
+     * Removes multiple items from the pool.
+     *
+     * @param array $keys An array of keys that should be removed from the pool
+     * @return bool True if the items were successfully removed
+     */
     public function deleteItems(array $keys): bool
     {
         $success = true;
@@ -103,9 +175,19 @@ class FileCachePool implements CacheItemPoolInterface
         return $success;
     }
 
+    /**
+     * Persists a cache item immediately.
+     *
+     * @param CacheItemInterface $item The cache item to save
+     * @return bool True if the item was successfully persisted
+     */
     public function save(CacheItemInterface $item): bool
     {
-        $path = $this->getPath($item->getKey());
+        if (!$item instanceof CacheItem) {
+            throw new InvalidArgumentException('Cache items must be instances of ' . CacheItem::class);
+        }
+
+        $path = $this->_getPath($item->getKey());
         $data = [
             'value' => $item->get(),
             'expiration' => $item->getExpiration()
@@ -121,30 +203,53 @@ class FileCachePool implements CacheItemPoolInterface
         }
     }
 
+    /**
+     * Sets a cache item to be persisted later.
+     *
+     * @param CacheItemInterface $item The cache item to save
+     * @return bool True if the item was successfully queued
+     */
     public function saveDeferred(CacheItemInterface $item): bool
     {
-        $this->deferred[$item->getKey()] = $item;
+        $this->_deferred[$item->getKey()] = $item;
         return true;
     }
 
+    /**
+     * Persists any deferred cache items.
+     *
+     * @return bool True if all deferred items were successfully saved
+     */
     public function commit(): bool
     {
         $success = true;
-        foreach ($this->deferred as $item) {
+        foreach ($this->_deferred as $item) {
             if (!$this->save($item)) {
                 $success = false;
             }
         }
-        $this->deferred = [];
+        $this->_deferred = [];
         return $success;
     }
 
-    private function getPath(string $key): string
+    /**
+     * Gets the cache file path for a key.
+     *
+     * @param string $key The cache key
+     * @return string The file path
+     */
+    private function _getPath(string $key): string
     {
-        return $this->directory . '/' . sha1($key) . '.cache';
+        return $this->_directory . '/' . sha1($key) . '.cache';
     }
 
-    private function validateKey(string $key): void
+    /**
+     * Validates a cache key.
+     *
+     * @param string $key The key to validate
+     * @throws InvalidArgumentException If the key is invalid
+     */
+    private function _validateKey(string $key): void
     {
         if (!is_string($key) || preg_match('#[{}()/@:\\\\]#', $key)) {
             throw new InvalidArgumentException(
