@@ -4,3 +4,9 @@ composer.lock
 .php-cs-cache
 .phpunit.cache/
 *.bak
+
+*.tmp
+*~
+*.bak
+.*.swp
+.vscode/*.tmp
