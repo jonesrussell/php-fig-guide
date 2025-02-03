@@ -110,4 +110,14 @@ class ExampleContainer implements ContainerInterface
     {
         return isset($this->services[$id]);
     }
+
+    /**
+     * Get all services stored in the container.
+     *
+     * @return array<string, mixed>
+     */
+    public function getServices(): array
+    {
+        return $this->services;
+    }
 }
