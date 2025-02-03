@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhpFig\PSR7\Message;
+namespace JonesRussell\PhpFigGuide\PSR7\Message;
 
 /**
  * Representation of an outgoing, client-side request.

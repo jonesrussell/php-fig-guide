@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhpFig\PSR7\Message;
+namespace JonesRussell\PhpFigGuide\PSR7\Message;
 
 /**
  * HTTP messages consist of requests from a client to a server and responses from a server to a client.
