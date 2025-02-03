@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/ExampleContainer.php'; // Ensure the ExampleContainer is included
+require_once __DIR__ . '/../../vendor/autoload.php'; // Include the Composer autoloader
 
 // Mock classes for demonstration
 class DatabaseConnection {
@@ -27,5 +27,5 @@ $database = $container->get('database');
 $logger = $container->get('logger');
 
 // Using the services
-echo $database->connect(); // Output: Database connected!
+echo $database->connect() . "\n"; // Output: Database connected!
 $logger->log("This is a log message."); // Output: Log: This is a log message. 
