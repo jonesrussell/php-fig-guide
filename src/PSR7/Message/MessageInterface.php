@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace JonesRussell\PhpFigGuide\PSR7\Message;
 
+use JonesRussell\PhpFigGuide\PSR7\Message\StreamInterface;
+
 /**
  * HTTP messages consist of requests from a client to a server and responses from a server to a client.
  * This interface defines the methods common to each.

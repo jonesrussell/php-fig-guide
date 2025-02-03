@@ -86,4 +86,10 @@ class Stream implements StreamInterface
     {
         return (bool)stream_get_meta_data($this->resource)['mode'] === 'r';
     }
+
+    public function getMetadata(?string $key = null)
+    {
+        $metadata = stream_get_meta_data($this->resource);
+        return $key === null ? $metadata : ($metadata[$key] ?? null);
+    }
 }

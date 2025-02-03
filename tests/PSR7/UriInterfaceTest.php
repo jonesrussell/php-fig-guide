@@ -4,6 +4,7 @@ namespace JonesRussell\PhpFigGuide\Tests\PSR7;
 
 use PHPUnit\Framework\TestCase;
 use JonesRussell\PhpFigGuide\PSR7\Message\UriInterface;
+use JonesRussell\PhpFigGuide\PSR7\Message\Uri;
 
 class UriInterfaceTest extends TestCase
 {
@@ -24,6 +25,10 @@ class UriInterfaceTest extends TestCase
 
     public function testWithAuthority()
     {
-        $this->assertTrue(method_exists(UriInterface::class, 'withAuthority'));
+        $uri = new Uri('http', 'example.com');
+        $newUri = $uri->withAuthority('new-authority.com');
+
+        $this->assertNotSame($uri, $newUri);
+        $this->assertEquals('new-authority.com', $newUri->getAuthority());
     }
 }
