@@ -98,4 +98,4 @@ interface RequestInterface extends MessageInterface
      * @return static
      */
     public function withUri(UriInterface $uri, bool $preserveHost = false): self;
-} 
+}
