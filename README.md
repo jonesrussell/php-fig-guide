@@ -6,6 +6,11 @@ Each standard is implemented in its own directory with examples and tests.
 ## Standards Covered
 
 - [PSR-1: Basic Coding Standard](src/PSR1)
+- [PSR-3: Logger Interface](src/PSR3)
+- [PSR-4: Autoloading Standard](src/PSR4)
+- [PSR-6: Caching Interface](src/PSR6)
+- [PSR-7: HTTP Message Interfaces](src/PSR7)
+- [PSR-11: Container Interface](src/PSR11)
 - More coming soon...
 
 ## Requirements
