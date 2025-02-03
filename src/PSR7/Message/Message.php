@@ -2,7 +2,7 @@
 
 namespace JonesRussell\PhpFigGuide\PSR7\Message;
 
-use MessageInterface;
+use JonesRussell\PhpFigGuide\PSR7\Message\MessageInterface;
 
 class Message implements MessageInterface
 {
@@ -33,8 +33,51 @@ class Message implements MessageInterface
         return $this->headers;
     }
 
+    public function hasHeader(string $name): bool
+    {
+        return array_key_exists($name, $this->headers);
+    }
+
+    public function getHeader(string $name): array
+    {
+        return $this->headers[$name] ?? [];
+    }
+
+    public function getHeaderLine(string $name): string
+    {
+        return implode(', ', $this->getHeader($name));
+    }
+
+    public function withHeader(string $name, $value): self
+    {
+        $new = clone $this;
+        $new->headers[$name] = (array) $value; // Ensure value is an array
+        return $new;
+    }
+
+    public function withAddedHeader(string $name, $value): self
+    {
+        $new = clone $this;
+        $new->headers[$name] = array_merge($new->headers[$name] ?? [], (array) $value);
+        return $new;
+    }
+
+    public function withoutHeader(string $name): self
+    {
+        $new = clone $this;
+        unset($new->headers[$name]);
+        return $new;
+    }
+
     public function getBody(): StreamInterface
     {
         return $this->body;
+    }
+
+    public function withBody(StreamInterface $body): self
+    {
+        $new = clone $this;
+        $new->body = $body;
+        return $new;
     }
 }
