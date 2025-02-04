@@ -34,6 +34,18 @@ abstract class Message implements MessageInterface
     protected StreamInterface $body;
 
     /**
+     * Constructor for the Message class.
+     *
+     * @param StreamInterface $body The message body.
+     * @param string          $version The HTTP protocol version.
+     */
+    public function __construct(StreamInterface $body, string $version = '1.1')
+    {
+        $this->body = $body;
+        $this->protocolVersion = $version;
+    }
+
+    /**
      * Retrieves the HTTP protocol version as a string
      *
      * @return string HTTP protocol version

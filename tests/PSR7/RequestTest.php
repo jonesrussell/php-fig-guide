@@ -12,32 +12,45 @@ use JonesRussell\PhpFigGuide\PSR7\Uri;
 
 class RequestTest extends TestCase
 {
-    public function testCreateRequest(): void
+    private function createMockUri(): UriInterface
     {
         /** @var UriInterface|\PHPUnit\Framework\MockObject\MockObject $uri */
         $uri = $this->createMock(UriInterface::class);
-        $uri->expects($this->any())->method('getPath')->willReturn('/test');
-        $uri->expects($this->any())->method('getQuery')->willReturn('');
-        $uri->expects($this->any())->method('getHost')->willReturn('example.com');
-        $uri->expects($this->any())->method('getPort')->willReturn(null);
+        $uri->method('getPath')->willReturn('/');
+        $uri->method('getQuery')->willReturn('');
+        $uri->method('getHost')->willReturn('new-authority.com');
+        $uri->method('getPort')->willReturn(null);
+        return $uri;
+    }
 
-        /** @var StreamInterface|\PHPUnit\Framework\MockObject\MockObject|null $stream */
+    private function createMockStream(): StreamInterface
+    {
+        /** @var StreamInterface|\PHPUnit\Framework\MockObject\MockObject $stream */
         $stream = $this->createMock(StreamInterface::class);
-        $stream->expects($this->any())->method('isReadable')->willReturn(true);
-        $stream->expects($this->any())->method('isWritable')->willReturn(true);
+        $stream->method('isReadable')->willReturn(true);
+        $stream->method('isWritable')->willReturn(true);
+        return $stream;
+    }
+
+    public function testCreateRequest(): void
+    {
+        $uri = $this->createMockUri();
+        $stream = $this->createMockStream();
 
         $request = new Request('GET', $uri, [], $stream);
         $this->assertInstanceOf(Request::class, $request);
 
         $this->assertEquals('GET', $request->getMethod());
-        $this->assertEquals('http://example.com', (string) $request->getUri());
+        $this->assertEquals('http://new-authority.com', (string) $request->getUri());
         $this->assertEquals('1.1', $request->getProtocolVersion());
     }
 
     public function testWithMethod(): void
     {
-        $uri = new Uri('https://example.com');
-        $request = new Request('GET', $uri);
+        $uri = $this->createMockUri();
+        $stream = $this->createMockStream();
+
+        $request = new Request('GET', $uri, [], $stream);
         $newRequest = $request->withMethod('POST');
 
         $this->assertEquals('POST', $newRequest->getMethod());
@@ -46,19 +59,21 @@ class RequestTest extends TestCase
 
     public function testWithUri(): void
     {
-        $uri = new Uri('https://example.com');
+        $uri = new Uri('https://new-authority.com');
         $request = new Request('GET', $uri);
-        $newUri = new Uri('https://api.example.com');
+        $newUri = new Uri('https://api.new-authority.com');
         $newRequest = $request->withUri($newUri);
 
-        $this->assertEquals('https://api.example.com', (string) $newRequest->getUri());
-        $this->assertEquals('https://example.com', (string) $request->getUri());
+        $this->assertEquals('https://api.new-authority.com', (string) $newRequest->getUri());
+        $this->assertEquals('https://new-authority.com', (string) $request->getUri());
     }
 
     public function testWithHeader(): void
     {
-        $uri = new Uri('https://example.com');
-        $request = new Request('GET', $uri);
+        $uri = $this->createMockUri();
+        $stream = $this->createMockStream();
+
+        $request = new Request('GET', $uri, [], $stream);
         $newRequest = $request->withHeader('Accept', 'application/json');
 
         $this->assertTrue($newRequest->hasHeader('Accept'));

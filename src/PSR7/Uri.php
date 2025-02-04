@@ -54,6 +54,9 @@ class Uri implements UriInterface
             $this->query = $parts['query'] ?? '';
             $this->fragment = $parts['fragment'] ?? '';
             $this->authority = $this->getAuthority();
+
+            // Debugging output
+            error_log('Parsed URI: ' . print_r($parts, true));
         }
     }
 
@@ -171,6 +174,7 @@ class Uri implements UriInterface
      */
     public function getPath(): string
     {
+        error_log('URI Path: ' . $this->path);
         return $this->path;
     }
 
@@ -309,7 +313,22 @@ class Uri implements UriInterface
     public function withAuthority(string $authority): static
     {
         $new = clone $this;
-        $new->authority = $authority;
+
+        // Parse the authority to set user info, host, and port
+        $parts = explode('@', $authority);
+        if (count($parts) === 2) {
+            // User info is present
+            $new->userInfo = $parts[0];
+            $authority = $parts[1];
+        } else {
+            $new->userInfo = '';
+        }
+
+        // Split host and port
+        $hostParts = explode(':', $authority);
+        $new->host = strtolower($hostParts[0]);
+        $new->port = isset($hostParts[1]) ? $this->filterPort((int)$hostParts[1]) : null;
+
         return $new;
     }
 }

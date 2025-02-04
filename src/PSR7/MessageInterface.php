@@ -60,7 +60,7 @@ interface MessageInterface
      * Gets a comma-separated string of the values for a single header.
      *
      * @param  string $name Case-insensitive header field name.
-     * @return string A string of values as provided for the given header concatenated together using a comma.
+     * @return string A string of values as provided for the header concatenated together using a comma.
      */
     public function getHeaderLine(string $name): string;
 

@@ -23,7 +23,7 @@ class UriInterfaceTest extends TestCase
         $this->assertTrue(method_exists(UriInterface::class, 'getAuthority'));
     }
 
-    public function testWithAuthority()
+    public function testWithAuthority(): void
     {
         $uri = new Uri('http', 'example.com');
         $newUri = $uri->withAuthority('new-authority.com');
