@@ -8,12 +8,6 @@ declare(strict_types=1);
  * This file contains the implementation of PSR-7's ResponseInterface.
  * It provides functionality for HTTP responses including status codes
  * and reason phrases.
- *
- * @category Response
- * @package  JonesRussell\PhpFigGuide\PSR7
- * @author   Russell Jones <jonesrussell42@gmail.com>
- * @license  MIT https://opensource.org/licenses/MIT
- * @link     https://github.com/jonesrussell/php-fig-guide
  */
 
 namespace JonesRussell\PhpFigGuide\PSR7;
@@ -27,6 +21,12 @@ use JonesRussell\PhpFigGuide\PSR7\StreamInterface;
  *
  * Represents an HTTP response message with status code and reason phrase.
  * Extends the base Message class to include response-specific functionality.
+ * 
+ * @category Response
+ * @package  JonesRussell\PhpFigGuide\PSR7
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
  */
 class Response extends Message implements ResponseInterface
 {

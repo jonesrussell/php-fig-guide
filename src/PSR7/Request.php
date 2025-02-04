@@ -49,11 +49,22 @@ class Request extends Message implements RequestInterface
         $this->requestTarget = $this->buildRequestTarget();
     }
 
+    /**
+     * Gets the request target.
+     *
+     * @return string The request target.
+     */
     public function getRequestTarget(): string
     {
         return $this->requestTarget;
     }
 
+    /**
+     * Returns an instance with the specified request target.
+     *
+     * @param string $requestTarget The request target to set.
+     * @return static
+     */
     public function withRequestTarget(string $requestTarget): static
     {
         $new = clone $this;
@@ -61,11 +72,22 @@ class Request extends Message implements RequestInterface
         return $new;
     }
 
+    /**
+     * Gets the HTTP method of the request.
+     *
+     * @return string The HTTP method.
+     */
     public function getMethod(): string
     {
         return $this->method;
     }
 
+    /**
+     * Returns an instance with the provided HTTP method.
+     *
+     * @param string $method The HTTP method to set.
+     * @return static
+     */
     public function withMethod(string $method): static
     {
         $new = clone $this;
@@ -73,11 +95,23 @@ class Request extends Message implements RequestInterface
         return $new;
     }
 
+    /**
+     * Retrieves the URI instance.
+     *
+     * @return UriInterface The URI instance.
+     */
     public function getUri(): UriInterface
     {
         return $this->uri;
     }
 
+    /**
+     * Returns an instance with the provided URI.
+     *
+     * @param UriInterface $uri          The new URI to set.
+     * @param bool         $preserveHost Whether to preserve the original Host header.
+     * @return static
+     */
     public function withUri(UriInterface $uri, bool $preserveHost = false): static
     {
         $new = clone $this;
@@ -90,6 +124,11 @@ class Request extends Message implements RequestInterface
         return $new;
     }
 
+    /**
+     * Builds the request target from the URI.
+     *
+     * @return string The constructed request target.
+     */
     private function buildRequestTarget(): string
     {
         $target = $this->uri->getPath();
@@ -102,6 +141,11 @@ class Request extends Message implements RequestInterface
         return $target;
     }
 
+    /**
+     * Updates the Host header from the URI.
+     *
+     * @return void
+     */
     private function updateHostFromUri(): void
     {
         $host = $this->uri->getHost();

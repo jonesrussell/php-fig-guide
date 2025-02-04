@@ -32,7 +32,7 @@ interface RequestInterface extends MessageInterface
      * this method may be used to create an instance with the specified
      * request-target, verbatim.
      *
-     * @param  string $requestTarget
+     * @param  string $requestTarget non-origin-form request-target
      * @return static
      */
     public function withRequestTarget(string $requestTarget): self;

@@ -80,6 +80,7 @@ interface StreamInterface
      *                     PHP $whence values for `fseek()`.  SEEK_SET: Set position equal to
      *                     offset bytes SEEK_CUR: Set position to current location plus offset
      *                     SEEK_END: Set position to end-of-stream plus offset.
+     * @return void
      * @throws \RuntimeException on failure.
      */
     public function seek(int $offset, int $whence = SEEK_SET): void;
@@ -90,6 +91,7 @@ interface StreamInterface
      * If the stream is not seekable, this method will raise an exception;
      * otherwise, it will perform a seek(0).
      *
+     * @return void
      * @throws \RuntimeException on failure.
      */
     public function rewind(): void;
