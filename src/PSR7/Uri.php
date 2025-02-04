@@ -43,6 +43,10 @@ class Uri implements UriInterface
                 throw new InvalidArgumentException('Unable to parse URI');
             }
 
+            // Debugging output
+            error_log('Raw URI: ' . $uri);
+            error_log('Parsed URI: ' . print_r($parts, true));
+
             $this->scheme = isset($parts['scheme']) ? strtolower($parts['scheme']) : '';
             $this->userInfo = $parts['user'] ?? '';
             if (isset($parts['pass'])) {
@@ -55,8 +59,21 @@ class Uri implements UriInterface
             $this->fragment = $parts['fragment'] ?? '';
             $this->authority = $this->getAuthority();
 
-            // Debugging output
-            error_log('Parsed URI: ' . print_r($parts, true));
+            // Log the parsed components
+            error_log(
+                'Parsed Components: ' . print_r(
+                    [
+                    'scheme' => $this->scheme,
+                    'userInfo' => $this->userInfo,
+                    'host' => $this->host,
+                    'port' => $this->port,
+                    'path' => $this->path,
+                    'query' => $this->query,
+                    'fragment' => $this->fragment,
+                    'authority' => $this->authority,
+                    ], true
+                )
+            );
         }
     }
 
