@@ -5,25 +5,20 @@ declare(strict_types=1);
 namespace JonesRussell\PhpFigGuide\PSR7;
 
 /**
- * Representation of an outgoing, client-side request.
+ * Request Interface
  *
- * Per the HTTP specification, this interface includes properties for
- * each of the following:
+ * This interface defines the methods for HTTP request handling.
  *
- * - Protocol version
- * - HTTP method
- * - URI
- * - Headers
- * - Message body
+ * @category Request
+ * @package  JonesRussell\PhpFigGuide\PSR7
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
  */
 interface RequestInterface extends MessageInterface
 {
     /**
-     * Retrieves the message's request target.
-     *
-     * Retrieves the message's request-target either as it will appear (for
-     * clients), as it appeared at request (for servers), or as it was
-     * specified for the instance (see withRequestTarget()).
+     * Retrieves the request target.
      *
      * @return string
      */

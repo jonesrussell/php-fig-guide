@@ -9,6 +9,12 @@ use JonesRussell\PhpFigGuide\PSR7\StreamInterface;
 /**
  * HTTP messages consist of requests from a client to a server and responses from a server to a client.
  * This interface defines the methods common to each.
+ *  
+ * @category Message
+ * @package  JonesRussell\PhpFigGuide\PSR7
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
  */
 interface MessageInterface
 {

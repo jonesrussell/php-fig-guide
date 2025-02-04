@@ -8,8 +8,6 @@ declare(strict_types=1);
  * This file contains the base implementation of PSR-7's MessageInterface.
  * It provides common functionality for HTTP messages including headers,
  * protocol version, and message body handling.
- *
- * @package JonesRussell\PhpFigGuide\PSR7
  */
 
 namespace JonesRussell\PhpFigGuide\PSR7;
@@ -22,12 +20,18 @@ use JonesRussell\PhpFigGuide\PSR7\StreamInterface;
  *
  * Implements common functionality for HTTP messages as defined in PSR-7.
  * This includes protocol version, headers, and message body handling.
+ *  
+ * @category Message
+ * @package  JonesRussell\PhpFigGuide\PSR7
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
  */
 abstract class Message implements MessageInterface
 {
-    protected string $_protocolVersion = '1.1';
-    protected array $_headers = [];
-    protected StreamInterface $_body;
+    protected string $protocolVersion = '1.1';
+    protected array $headers = [];
+    protected StreamInterface $body;
 
     /**
      * Retrieves the HTTP protocol version as a string
@@ -36,7 +40,7 @@ abstract class Message implements MessageInterface
      */
     public function getProtocolVersion(): string
     {
-        return $this->_protocolVersion;
+        return $this->protocolVersion;
     }
 
     /**
@@ -48,7 +52,7 @@ abstract class Message implements MessageInterface
     public function withProtocolVersion(string $version): static
     {
         $new = clone $this;
-        $new->_protocolVersion = $version;
+        $new->protocolVersion = $version;
         return $new;
     }
 
@@ -59,7 +63,7 @@ abstract class Message implements MessageInterface
      */
     public function getHeaders(): array
     {
-        return $this->_headers;
+        return $this->headers;
     }
 
     /**
@@ -70,7 +74,7 @@ abstract class Message implements MessageInterface
      */
     public function hasHeader(string $name): bool
     {
-        return isset($this->_headers[strtolower($name)]);
+        return isset($this->headers[strtolower($name)]);
     }
 
     /**
@@ -82,7 +86,7 @@ abstract class Message implements MessageInterface
     public function getHeader(string $name): array
     {
         $name = strtolower($name);
-        return $this->hasHeader($name) ? $this->_headers[$name] : [];
+        return $this->hasHeader($name) ? $this->headers[$name] : [];
     }
 
     /**
@@ -106,7 +110,7 @@ abstract class Message implements MessageInterface
     public function withHeader(string $name, $value): static
     {
         $new = clone $this;
-        $new->_headers[strtolower($name)] = (array) $value; // Ensure value is an array
+        $new->headers[strtolower($name)] = (array) $value; // Ensure value is an array
         return $new;
     }
 
@@ -122,9 +126,9 @@ abstract class Message implements MessageInterface
         $new = clone $this;
         $name = strtolower($name);
         if (!$new->hasHeader($name)) {
-            $new->_headers[$name] = [];
+            $new->headers[$name] = [];
         }
-        $new->_headers[$name] = array_merge($new->_headers[$name], (array) $value);
+        $new->headers[$name] = array_merge($new->headers[$name], (array) $value);
         return $new;
     }
 
@@ -137,7 +141,7 @@ abstract class Message implements MessageInterface
     public function withoutHeader(string $name): static
     {
         $new = clone $this;
-        unset($new->_headers[strtolower($name)]);
+        unset($new->headers[strtolower($name)]);
         return $new;
     }
 
@@ -148,7 +152,7 @@ abstract class Message implements MessageInterface
      */
     public function getBody(): StreamInterface
     {
-        return $this->_body;
+        return $this->body;
     }
 
     /**
@@ -160,7 +164,7 @@ abstract class Message implements MessageInterface
     public function withBody(StreamInterface $body): static
     {
         $new = clone $this;
-        $new->_body = $body;
+        $new->body = $body;
         return $new;
     }
 }

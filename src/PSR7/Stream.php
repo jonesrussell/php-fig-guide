@@ -7,6 +7,17 @@ namespace JonesRussell\PhpFigGuide\PSR7;
 use JonesRussell\PhpFigGuide\PSR7\StreamInterface;
 use RuntimeException;
 
+/**
+ * Class Stream
+ *
+ * This class implements the StreamInterface for handling stream operations.
+ *
+ * @category Stream
+ * @package  JonesRussell\PhpFigGuide\PSR7
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
+ */
 class Stream implements StreamInterface
 {
     private $resource;
@@ -14,6 +25,11 @@ class Stream implements StreamInterface
     private bool $readable;
     private bool $writable;
 
+    /**
+     * Stream constructor.
+     *
+     * @param resource $resource The stream resource.
+     */
     public function __construct($resource = null)
     {
         $this->resource = $resource ?: fopen('php://temp', 'r+');
@@ -29,6 +45,11 @@ class Stream implements StreamInterface
                          strpos($meta['mode'], '+') !== false;
     }
 
+    /**
+     * Returns the string representation of the stream.
+     *
+     * @return string
+     */
     public function __toString(): string
     {
         try {
@@ -41,6 +62,11 @@ class Stream implements StreamInterface
         }
     }
 
+    /**
+     * Closes the stream.
+     *
+     * @return void
+     */
     public function close(): void
     {
         if (isset($this->resource)) {
@@ -49,6 +75,11 @@ class Stream implements StreamInterface
         $this->detach();
     }
 
+    /**
+     * Detaches the underlying resource from the stream.
+     *
+     * @return resource|null
+     */
     public function detach()
     {
         if (!isset($this->resource)) {
@@ -64,6 +95,11 @@ class Stream implements StreamInterface
         return $resource;
     }
 
+    /**
+     * Returns the size of the stream if known.
+     *
+     * @return int|null
+     */
     public function getSize(): ?int
     {
         if (!isset($this->resource)) {
@@ -74,6 +110,11 @@ class Stream implements StreamInterface
         return $stats['size'] ?? null;
     }
 
+    /**
+     * Returns the current position of the stream.
+     *
+     * @return int
+     */
     public function tell(): int
     {
         if (!isset($this->resource)) {
@@ -88,16 +129,34 @@ class Stream implements StreamInterface
         return $result;
     }
 
+    /**
+     * Returns true if the stream is at the end of the stream.
+     *
+     * @return bool
+     */
     public function eof(): bool
     {
         return !isset($this->resource) || feof($this->resource);
     }
 
+    /**
+     * Returns true if the stream is seekable.
+     *
+     * @return bool
+     */
     public function isSeekable(): bool
     {
         return $this->seekable;
     }
 
+    /**
+     * Seek to a position in the stream.
+     *
+     * @param int $offset The position to seek to.
+     * @param int $whence The way to interpret the offset.
+     * @return void
+     * @throws \InvalidArgumentException on invalid arguments.
+     */
     public function seek(int $offset, int $whence = SEEK_SET): void
     {
         if (!$this->seekable) {
@@ -109,16 +168,32 @@ class Stream implements StreamInterface
         }
     }
 
+    /**
+     * Rewinds the stream to the beginning.
+     *
+     * @return void
+     */
     public function rewind(): void
     {
         $this->seek(0);
     }
 
+    /**
+     * Returns true if the stream is writable.
+     *
+     * @return bool
+     */
     public function isWritable(): bool
     {
         return $this->writable;
     }
 
+    /**
+     * Writes data to the stream.
+     *
+     * @param string $string The data to write.
+     * @return int The number of bytes written.
+     */
     public function write(string $string): int
     {
         if (!$this->writable) {
@@ -133,11 +208,22 @@ class Stream implements StreamInterface
         return $result;
     }
 
+    /**
+     * Returns true if the stream is readable.
+     *
+     * @return bool
+     */
     public function isReadable(): bool
     {
         return $this->readable;
     }
 
+    /**
+     * Reads data from the stream.
+     *
+     * @param int $length The number of bytes to read.
+     * @return string The data read from the stream.
+     */
     public function read(int $length): string
     {
         if (!$this->readable) {
@@ -152,6 +238,11 @@ class Stream implements StreamInterface
         return $result;
     }
 
+    /**
+     * Returns the remaining contents of the stream.
+     *
+     * @return string
+     */
     public function getContents(): string
     {
         if (!isset($this->resource)) {
@@ -166,6 +257,12 @@ class Stream implements StreamInterface
         return $contents;
     }
 
+    /**
+     * Returns metadata about the stream.
+     *
+     * @param string|null $key Optional key to retrieve specific metadata.
+     * @return array|string|null
+     */
     public function getMetadata(?string $key = null)
     {
         if (!isset($this->resource)) {

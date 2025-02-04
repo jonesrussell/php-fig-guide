@@ -17,7 +17,7 @@ namespace JonesRussell\PhpFigGuide\PSR1;
  * - Constants in UPPER_CASE
  * - Methods in camelCase   
  * 
- * @category User Management
+ * @category User_Management
  * @package  JonesRussell\PhpFigGuide\PSR1
  * @author   Russell Jones <jonesrussell42@gmail.com>
  * @license  MIT https://opensource.org/licenses/MIT

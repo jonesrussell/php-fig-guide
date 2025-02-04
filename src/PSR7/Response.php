@@ -9,13 +9,18 @@ declare(strict_types=1);
  * It provides functionality for HTTP responses including status codes
  * and reason phrases.
  *
- * @package JonesRussell\PhpFigGuide\PSR7
+ * @category Response
+ * @package  JonesRussell\PhpFigGuide\PSR7
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
  */
 
 namespace JonesRussell\PhpFigGuide\PSR7;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
+use JonesRussell\PhpFigGuide\PSR7\Message;
+use JonesRussell\PhpFigGuide\PSR7\ResponseInterface;
+use JonesRussell\PhpFigGuide\PSR7\StreamInterface;
 
 /**
  * HTTP Response Message
@@ -25,8 +30,8 @@ use Psr\Http\Message\StreamInterface;
  */
 class Response extends Message implements ResponseInterface
 {
-    private int $_statusCode;
-    private string $_reasonPhrase = '';
+    private int $statusCode;
+    private string $reasonPhrase = '';
 
     private const PHRASES = [
         200 => 'OK',
@@ -55,13 +60,13 @@ class Response extends Message implements ResponseInterface
         string $version = '1.1',
         string $reason = ''
     ) {
-        $this->_statusCode = $status;
-        $this->_headers = $headers;
+        $this->statusCode = $status;
+        $this->headers = $headers;
         if ($body !== null) {
-            $this->_body = $body;
+            $this->body = $body;
         }
-        $this->_protocolVersion = $version;
-        $this->_reasonPhrase = $reason ?: (self::PHRASES[$status] ?? '');
+        $this->protocolVersion = $version;
+        $this->reasonPhrase = $reason ?: (self::PHRASES[$status] ?? '');
     }
 
     /**
@@ -71,7 +76,7 @@ class Response extends Message implements ResponseInterface
      */
     public function getStatusCode(): int
     {
-        return $this->_statusCode;
+        return $this->statusCode;
     }
 
     /**
@@ -84,8 +89,8 @@ class Response extends Message implements ResponseInterface
     public function withStatus($code, $reasonPhrase = ''): static
     {
         $new = clone $this;
-        $new->_statusCode = $code;
-        $new->_reasonPhrase = $reasonPhrase ?: (self::PHRASES[$code] ?? '');
+        $new->statusCode = $code;
+        $new->reasonPhrase = $reasonPhrase ?: (self::PHRASES[$code] ?? '');
         return $new;
     }
 
@@ -96,6 +101,6 @@ class Response extends Message implements ResponseInterface
      */
     public function getReasonPhrase(): string
     {
-        return $this->_reasonPhrase;
+        return $this->reasonPhrase;
     }
 }

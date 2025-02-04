@@ -5,11 +5,15 @@ declare(strict_types=1);
 namespace JonesRussell\PhpFigGuide\PSR7;
 
 /**
- * Describes a data stream.
+ * Stream Interface
  *
- * Typically, an instance will wrap a PHP stream; this interface provides
- * a wrapper around the most common operations, including serialization of
- * the entire stream to a string.
+ * This interface defines the methods for stream handling.
+ *
+ * @category Stream
+ * @package  JonesRussell\PhpFigGuide\PSR7
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
  */
 interface StreamInterface
 {

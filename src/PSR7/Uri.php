@@ -7,6 +7,17 @@ namespace JonesRussell\PhpFigGuide\PSR7;
 use JonesRussell\PhpFigGuide\PSR7\UriInterface;
 use InvalidArgumentException;
 
+/**
+ * URI Class
+ *
+ * This class implements the UriInterface for handling URI operations.
+ *
+ * @category URI
+ * @package  JonesRussell\PhpFigGuide\PSR7
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
+ */
 class Uri implements UriInterface
 {
     private string $scheme;
@@ -17,6 +28,12 @@ class Uri implements UriInterface
     private string $query = '';
     private string $fragment = '';
 
+    /**
+     * Constructor for the Uri class.
+     *
+     * @param string $uri The URI string to parse.
+     * @throws InvalidArgumentException If the URI cannot be parsed.
+     */
     public function __construct(string $uri = '')
     {
         if ($uri !== '') {
@@ -39,6 +56,11 @@ class Uri implements UriInterface
         }
     }
 
+    /**
+     * Gets the scheme of the URI.
+     *
+     * @return string
+     */
     public function getScheme(): string
     {
         return $this->scheme;

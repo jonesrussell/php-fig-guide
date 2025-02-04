@@ -8,6 +8,17 @@ use JonesRussell\PhpFigGuide\PSR7\RequestInterface;
 use JonesRussell\PhpFigGuide\PSR7\StreamInterface;
 use JonesRussell\PhpFigGuide\PSR7\UriInterface;
 
+/**
+ * HTTP Request Message
+ *
+ * Represents an HTTP request message with method, URI, headers, and body.
+ *
+ * @category Request
+ * @package  JonesRussell\PhpFigGuide\PSR7
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
+ */
 class Request extends Message implements RequestInterface
 {
     private string $method;
@@ -15,6 +26,15 @@ class Request extends Message implements RequestInterface
     private UriInterface $uri;
     private array $headers;
 
+    /**
+     * Constructor for the Request class.
+     *
+     * @param string          $method  The HTTP method.
+     * @param UriInterface    $uri     The request URI.
+     * @param array           $headers The request headers.
+     * @param StreamInterface $body    The request body.
+     * @param string          $version The HTTP version.
+     */
     public function __construct(
         string $method,
         UriInterface $uri,
