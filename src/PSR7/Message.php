@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace JonesRussell\PhpFigGuide\PSR7;
 
-use Psr\Http\Message\MessageInterface;
-use Psr\Http\Message\StreamInterface;
+use JonesRussell\PhpFigGuide\PSR7\MessageInterface;
+use JonesRussell\PhpFigGuide\PSR7\StreamInterface;
 
 /**
  * Abstract base class for HTTP messages
@@ -45,7 +45,7 @@ abstract class Message implements MessageInterface
      * @param  string $version HTTP protocol version
      * @return static
      */
-    public function withProtocolVersion($version): static
+    public function withProtocolVersion(string $version): static
     {
         $new = clone $this;
         $new->_protocolVersion = $version;
@@ -68,7 +68,7 @@ abstract class Message implements MessageInterface
      * @param  string $name Case-insensitive header field name
      * @return bool Returns true if any header names match the given name
      */
-    public function hasHeader($name): bool
+    public function hasHeader(string $name): bool
     {
         return isset($this->_headers[strtolower($name)]);
     }
@@ -79,13 +79,10 @@ abstract class Message implements MessageInterface
      * @param  string $name Case-insensitive header field name
      * @return string[] An array of string values as provided for the header
      */
-    public function getHeader($name): array
+    public function getHeader(string $name): array
     {
         $name = strtolower($name);
-        if (!$this->hasHeader($name)) {
-            return [];
-        }
-        return $this->_headers[$name];
+        return $this->hasHeader($name) ? $this->_headers[$name] : [];
     }
 
     /**
@@ -94,7 +91,7 @@ abstract class Message implements MessageInterface
      * @param  string $name Case-insensitive header field name
      * @return string A string of values as provided for the header
      */
-    public function getHeaderLine($name): string
+    public function getHeaderLine(string $name): string
     {
         return implode(', ', $this->getHeader($name));
     }
@@ -106,10 +103,10 @@ abstract class Message implements MessageInterface
      * @param  string|string[] $value Header value(s)
      * @return static
      */
-    public function withHeader($name, $value): static
+    public function withHeader(string $name, $value): static
     {
         $new = clone $this;
-        $new->_headers[strtolower($name)] = is_array($value) ? $value : [$value];
+        $new->_headers[strtolower($name)] = (array) $value; // Ensure value is an array
         return $new;
     }
 
@@ -120,14 +117,14 @@ abstract class Message implements MessageInterface
      * @param  string|string[] $value Header value(s)
      * @return static
      */
-    public function withAddedHeader($name, $value): static
+    public function withAddedHeader(string $name, $value): static
     {
         $new = clone $this;
         $name = strtolower($name);
         if (!$new->hasHeader($name)) {
             $new->_headers[$name] = [];
         }
-        $new->_headers[$name][] = $value;
+        $new->_headers[$name] = array_merge($new->_headers[$name], (array) $value);
         return $new;
     }
 
@@ -137,7 +134,7 @@ abstract class Message implements MessageInterface
      * @param  string $name Case-insensitive header field name
      * @return static
      */
-    public function withoutHeader($name): static
+    public function withoutHeader(string $name): static
     {
         $new = clone $this;
         unset($new->_headers[strtolower($name)]);

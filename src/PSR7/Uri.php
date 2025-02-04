@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace JonesRussell\PhpFigGuide\PSR7;
 
-use Psr\Http\Message\UriInterface;
+use JonesRussell\PhpFigGuide\PSR7\UriInterface;
 use InvalidArgumentException;
 
 class Uri implements UriInterface
 {
-    private const SCHEMES = ['http' => 80, 'https' => 443];
-    private const CHAR_UNRESERVED = 'a-zA-Z0-9_\-\.~';
-    private const CHAR_SUB_DELIMS = '!\$&\'\(\)\*\+,;=';
-
-    private string $scheme = '';
+    private string $scheme;
     private string $userInfo = '';
     private string $host = '';
     private ?int $port = null;
@@ -39,6 +35,7 @@ class Uri implements UriInterface
             $this->path = $parts['path'] ?? '';
             $this->query = $parts['query'] ?? '';
             $this->fragment = $parts['fragment'] ?? '';
+            $this->authority = $this->getAuthority();
         }
     }
 
@@ -70,9 +67,23 @@ class Uri implements UriInterface
         return $this->userInfo;
     }
 
+    public function withUserInfo(string $user, ?string $password = null): static
+    {
+        $new = clone $this;
+        $new->userInfo = $password ? $user . ':' . $password : $user;
+        return $new;
+    }
+
     public function getHost(): string
     {
         return $this->host;
+    }
+
+    public function withHost(string $host): static
+    {
+        $new = clone $this;
+        $new->host = strtolower($host);
+        return $new;
     }
 
     public function getPort(): ?int
@@ -80,9 +91,24 @@ class Uri implements UriInterface
         return $this->port;
     }
 
+    public function withPort(?int $port): static
+    {
+        $port = $this->filterPort($port);
+        $new = clone $this;
+        $new->port = $port;
+        return $new;
+    }
+
     public function getPath(): string
     {
         return $this->path;
+    }
+
+    public function withPath(string $path): static
+    {
+        $new = clone $this;
+        $new->path = $path;
+        return $new;
     }
 
     public function getQuery(): string
@@ -90,92 +116,20 @@ class Uri implements UriInterface
         return $this->query;
     }
 
-    public function getFragment(): string
+    public function withQuery(string $query): static
     {
-        return $this->fragment;
-    }
-
-    public function withScheme($scheme): static
-    {
-        $scheme = strtolower($scheme);
-        if ($this->scheme === $scheme) {
-            return $this;
-        }
-
-        $new = clone $this;
-        $new->scheme = $scheme;
-        $new->port = $new->filterPort($new->port);
-        return $new;
-    }
-
-    public function withUserInfo($user, $password = null): static
-    {
-        $info = $user;
-        if ($password !== null) {
-            $info .= ':' . $password;
-        }
-
-        if ($this->userInfo === $info) {
-            return $this;
-        }
-
-        $new = clone $this;
-        $new->userInfo = $info;
-        return $new;
-    }
-
-    public function withHost($host): static
-    {
-        $host = strtolower($host);
-        if ($this->host === $host) {
-            return $this;
-        }
-
-        $new = clone $this;
-        $new->host = $host;
-        return $new;
-    }
-
-    public function withPort($port): static
-    {
-        $port = $this->filterPort($port);
-        if ($this->port === $port) {
-            return $this;
-        }
-
-        $new = clone $this;
-        $new->port = $port;
-        return $new;
-    }
-
-    public function withPath($path): static
-    {
-        if ($this->path === $path) {
-            return $this;
-        }
-
-        $new = clone $this;
-        $new->path = $path;
-        return $new;
-    }
-
-    public function withQuery($query): static
-    {
-        if ($this->query === $query) {
-            return $this;
-        }
-
         $new = clone $this;
         $new->query = $query;
         return $new;
     }
 
-    public function withFragment($fragment): static
+    public function getFragment(): string
     {
-        if ($this->fragment === $fragment) {
-            return $this;
-        }
+        return $this->fragment;
+    }
 
+    public function withFragment(string $fragment): static
+    {
         $new = clone $this;
         $new->fragment = $fragment;
         return $new;
@@ -186,15 +140,15 @@ class Uri implements UriInterface
         $uri = '';
 
         if ($this->scheme !== '') {
-            $uri .= $this->scheme . ':';
+            $uri .= $this->scheme . '://';
         }
 
         if (($authority = $this->getAuthority()) !== '') {
-            $uri .= '//' . $authority;
+            $uri .= $authority;
         }
 
         if ($this->path !== '') {
-            $uri .= $this->path;
+            $uri .= '/' . ltrim($this->path, '/');
         }
 
         if ($this->query !== '') {
@@ -219,5 +173,18 @@ class Uri implements UriInterface
         }
 
         return $port;
+    }
+
+    /**
+     * Return a new instance with the specified scheme.
+     *
+     * @param string $scheme The scheme to set.
+     * @return static
+     */
+    public function withScheme(string $scheme): static
+    {
+        $new = clone $this;
+        $new->scheme = strtolower($scheme);
+        return $new;
     }
 }

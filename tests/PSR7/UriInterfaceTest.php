@@ -3,8 +3,8 @@
 namespace JonesRussell\PhpFigGuide\Tests\PSR7;
 
 use PHPUnit\Framework\TestCase;
-use JonesRussell\PhpFigGuide\PSR7\Message\UriInterface;
-use JonesRussell\PhpFigGuide\PSR7\Message\Uri;
+use JonesRussell\PhpFigGuide\PSR7\UriInterface;
+use JonesRussell\PhpFigGuide\PSR7\Uri;
 
 class UriInterfaceTest extends TestCase
 {

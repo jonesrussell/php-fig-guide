@@ -89,7 +89,8 @@ class FileCachePool implements CacheItemPoolInterface
                 }
                 unlink($path);
             } catch (\Exception $e) {
-                // Log error and continue with cache miss
+                // Log the error or handle it appropriately
+                error_log("Error reading cache file: " . $e->getMessage());
             }
         }
 
@@ -206,6 +207,8 @@ class FileCachePool implements CacheItemPoolInterface
             }
             return true;
         } catch (\Exception $e) {
+            // Log the error or handle it appropriately
+            error_log("Error saving cache item: " . $e->getMessage());
             return false;
         }
     }
@@ -255,6 +258,8 @@ class FileCachePool implements CacheItemPoolInterface
      *
      * @param  string $key The key to validate
      * @throws InvalidArgumentException If the key is invalid
+     *  
+     * @return void
      */
     private function validateKey(string $key): void
     {

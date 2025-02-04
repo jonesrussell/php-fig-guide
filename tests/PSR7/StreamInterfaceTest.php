@@ -3,7 +3,7 @@
 namespace JonesRussell\PhpFigGuide\Tests\PSR7;
 
 use PHPUnit\Framework\TestCase;
-use JonesRussell\PhpFigGuide\PSR7\Message\StreamInterface;
+use JonesRussell\PhpFigGuide\PSR7\StreamInterface;
 
 class StreamInterfaceTest extends TestCase
 {

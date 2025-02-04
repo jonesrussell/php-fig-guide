@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace JonesRussell\PhpFigGuide\PSR7\Message;
+namespace JonesRussell\PhpFigGuide\PSR7;
 
-use JonesRussell\PhpFigGuide\PSR7\Message\StreamInterface;
+use JonesRussell\PhpFigGuide\PSR7\StreamInterface;
 
 /**
  * HTTP messages consist of requests from a client to a server and responses from a server to a client.

@@ -15,7 +15,13 @@ namespace JonesRussell\PhpFigGuide\PSR1;
  * Demonstrates:
  * - StudlyCaps for class name
  * - Constants in UPPER_CASE
- * - Methods in camelCase
+ * - Methods in camelCase   
+ * 
+ * @category User Management
+ * @package  JonesRussell\PhpFigGuide\PSR1
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
  */
 class UserManager
 {

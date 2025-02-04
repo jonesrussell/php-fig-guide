@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace JonesRussell\PhpFigGuide\PSR7;
 
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\StreamInterface;
-use Psr\Http\Message\UriInterface;
+use JonesRussell\PhpFigGuide\PSR7\RequestInterface;
+use JonesRussell\PhpFigGuide\PSR7\StreamInterface;
+use JonesRussell\PhpFigGuide\PSR7\UriInterface;
 
 class Request extends Message implements RequestInterface
 {
     private string $method;
     private string $requestTarget;
     private UriInterface $uri;
+    private array $headers;
 
     public function __construct(
         string $method,
@@ -21,13 +22,10 @@ class Request extends Message implements RequestInterface
         ?StreamInterface $body = null,
         string $version = '1.1'
     ) {
+        parent::__construct($version, $body);
         $this->method = strtoupper($method);
         $this->uri = $uri;
         $this->headers = $headers;
-        if ($body !== null) {
-            $this->body = $body;
-        }
-        $this->protocolVersion = $version;
         $this->requestTarget = $this->buildRequestTarget();
     }
 
@@ -36,7 +34,7 @@ class Request extends Message implements RequestInterface
         return $this->requestTarget;
     }
 
-    public function withRequestTarget($requestTarget): static
+    public function withRequestTarget(string $requestTarget): static
     {
         $new = clone $this;
         $new->requestTarget = $requestTarget;
@@ -48,7 +46,7 @@ class Request extends Message implements RequestInterface
         return $this->method;
     }
 
-    public function withMethod($method): static
+    public function withMethod(string $method): static
     {
         $new = clone $this;
         $new->method = strtoupper($method);
@@ -60,7 +58,7 @@ class Request extends Message implements RequestInterface
         return $this->uri;
     }
 
-    public function withUri(UriInterface $uri, $preserveHost = false): static
+    public function withUri(UriInterface $uri, bool $preserveHost = false): static
     {
         $new = clone $this;
         $new->uri = $uri;

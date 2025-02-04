@@ -3,7 +3,7 @@
 namespace JonesRussell\PhpFigGuide\Tests\PSR7;
 
 use PHPUnit\Framework\TestCase;
-use JonesRussell\PhpFigGuide\PSR7\Message\RequestInterface;
+use JonesRussell\PhpFigGuide\PSR7\RequestInterface;
 
 class RequestInterfaceTest extends TestCase
 {

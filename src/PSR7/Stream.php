@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace JonesRussell\PhpFigGuide\PSR7;
 
-use Psr\Http\Message\StreamInterface;
+use JonesRussell\PhpFigGuide\PSR7\StreamInterface;
 use RuntimeException;
 
 class Stream implements StreamInterface
@@ -14,13 +14,13 @@ class Stream implements StreamInterface
     private bool $readable;
     private bool $writable;
 
-    public function __construct($resource)
+    public function __construct($resource = null)
     {
-        if (!is_resource($resource)) {
+        $this->resource = $resource ?: fopen('php://temp', 'r+');
+        if (!is_resource($this->resource)) {
             throw new RuntimeException('Resource must be a valid PHP resource');
         }
 
-        $this->resource = $resource;
         $meta = stream_get_meta_data($this->resource);
         $this->seekable = $meta['seekable'];
         $this->readable = strpos($meta['mode'], 'r') !== false || strpos($meta['mode'], '+') !== false;
@@ -98,7 +98,7 @@ class Stream implements StreamInterface
         return $this->seekable;
     }
 
-    public function seek($offset, $whence = SEEK_SET): void
+    public function seek(int $offset, int $whence = SEEK_SET): void
     {
         if (!$this->seekable) {
             throw new RuntimeException('Stream is not seekable');
@@ -119,7 +119,7 @@ class Stream implements StreamInterface
         return $this->writable;
     }
 
-    public function write($string): int
+    public function write(string $string): int
     {
         if (!$this->writable) {
             throw new RuntimeException('Cannot write to a non-writable stream');
@@ -138,7 +138,7 @@ class Stream implements StreamInterface
         return $this->readable;
     }
 
-    public function read($length): string
+    public function read(int $length): string
     {
         if (!$this->readable) {
             throw new RuntimeException('Cannot read from non-readable stream');
@@ -166,7 +166,7 @@ class Stream implements StreamInterface
         return $contents;
     }
 
-    public function getMetadata($key = null)
+    public function getMetadata(?string $key = null)
     {
         if (!isset($this->resource)) {
             return $key ? null : [];
