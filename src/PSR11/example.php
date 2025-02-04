@@ -1,6 +1,23 @@
 <?php
 
+namespace JonesRussell\PhpFigGuide\PSR11;
+
+// Declare the namespace
+
 require_once __DIR__ . '/../../vendor/autoload.php'; // Include the Composer autoloader
+
+/**
+ * Example usage of the container.
+ *
+ * This script demonstrates how to use the ExampleContainer
+ * to register and retrieve services.
+ *
+ * @category Example
+ * @package  JonesRussell\PhpFigGuide\PSR11
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
+ */
 
 /**
  * ================================
@@ -9,62 +26,8 @@ require_once __DIR__ . '/../../vendor/autoload.php'; // Include the Composer aut
  * ================================
  */
 
-/**
- * Mock class for a database connection
- * 
- * @property string $connectionMessage
- * @method   void __construct()
- * @method   string connect()
- * @method   void log(string $message)
- */
-class DatabaseConnection
-{
-    /**
-     * Message returned when the database is connected
-     * 
-     * @var string
-     */
-    public readonly string $connectionMessage;
-
-    /**
-     * Constructor for the DatabaseConnection class
-     */
-    public function __construct()
-    {
-        $this->connectionMessage = "Database connected!";
-    }
-
-    /**
-     * Connect to the database
-     * 
-     * @return string
-     */
-    public function connect(): string
-    {
-        return $this->connectionMessage;
-    }
-}
-
-/**
- * Mock class for a logger
- * 
- * @method void log(string $message)
- */
-class Logger
-{
-    /**
-     * Log a message
-     * 
-     * @param string $message
-     */
-    public function logline(string $message): void
-    {
-        echo "Log: $message\n\n";
-    }
-}
-
-// Create a container
-$container = new \JonesRussell\PhpFigGuide\PSR11\ExampleContainer(); // Use the full namespace
+// Example usage
+$container = new ExampleContainer();
 
 /**
  * Register services
@@ -79,20 +42,20 @@ $database = $container->get('database');
 $logger = $container->get('logger');
 
 /**
- * Log a custom message
- */
-$logger->logline("This is a log message."); // Output: Log: This is a log message. 
-
-/**
  * Using the services
  */
 $connectionMessage = $database->connect(); // Get the connection message
 $logger->logline($connectionMessage); // Log the connection message
 
+$logger->logline("This is a log message."); // Output: Log: This is a log message.
+
 /**
  * Print the contents of the container
+ *
+ * @param ContainerInterface $container The container to print.
+ * @return void
  */
-function printContainer($container): void
+function printContainer(ContainerInterface $container): void
 {
     $logger = $container->get('logger'); // Retrieve the logger from the container
     $logger->logline("Container Services:"); // Log the header

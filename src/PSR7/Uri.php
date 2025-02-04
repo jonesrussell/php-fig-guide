@@ -220,4 +220,4 @@ class Uri implements UriInterface
 
         return $port;
     }
-} 
+}

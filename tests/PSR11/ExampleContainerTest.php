@@ -11,6 +11,7 @@
  * @author   Russell Jones <jonesrussell42@gmail.com>
  * @license  MIT https://opensource.org/licenses/MIT
  * @link     https://github.com/jonesrussell/php-fig-guide
+ * @version  PHP 8.2
  */
 namespace JonesRussell\PhpFigGuide\Tests\PSR11;
 

@@ -68,7 +68,7 @@ class Request extends Message implements RequestInterface
     /**
      * @param  string $method
      * @return self
-     */ 
+     */
     public function withMethod(string $method): self
     {
         $new = clone $this;
@@ -90,7 +90,7 @@ class Request extends Message implements RequestInterface
      * This method MUST update the Host header of the returned request by
      * default if the URI contains a host component. If the URI does not
      * contain a host component, any pre-existing Host header MUST be carried
-     * 
+     *
      * @param  UriInterface $uri
      * @param  bool         $preserveHost
      * @return self

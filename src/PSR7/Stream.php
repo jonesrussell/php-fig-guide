@@ -24,8 +24,8 @@ class Stream implements StreamInterface
         $meta = stream_get_meta_data($this->resource);
         $this->seekable = $meta['seekable'];
         $this->readable = strpos($meta['mode'], 'r') !== false || strpos($meta['mode'], '+') !== false;
-        $this->writable = strpos($meta['mode'], 'w') !== false || 
-                         strpos($meta['mode'], 'a') !== false || 
+        $this->writable = strpos($meta['mode'], 'w') !== false ||
+                         strpos($meta['mode'], 'a') !== false ||
                          strpos($meta['mode'], '+') !== false;
     }
 
@@ -179,4 +179,4 @@ class Stream implements StreamInterface
 
         return $meta[$key] ?? null;
     }
-} 
+}

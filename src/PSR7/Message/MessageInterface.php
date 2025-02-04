@@ -98,4 +98,4 @@ interface MessageInterface
      * @return static
      */
     public function withBody(StreamInterface $body): self;
-} 
+}

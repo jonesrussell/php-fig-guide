@@ -166,4 +166,4 @@ abstract class Message implements MessageInterface
         $new->_body = $body;
         return $new;
     }
-} 
+}

@@ -97,4 +97,4 @@ class Request extends Message implements RequestInterface
 
         $this->headers['host'] = [$host];
     }
-} 
+}

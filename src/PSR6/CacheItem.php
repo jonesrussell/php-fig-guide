@@ -2,7 +2,7 @@
 
 /**
  * Example implementation of PSR-6 Caching Interface.
- * 
+ *
  * This file implements the CacheItemInterface for storing
  * and managing individual cache items.
  */
@@ -16,9 +16,15 @@ use DateTime;
 
 /**
  * Cache item implementation following PSR-6.
- * 
+ *
  * This class represents a single item in the cache system,
  * managing its value, expiration, and hit status.
+ * 
+ * @category Cache
+ * @package  JonesRussell\PhpFigGuide\PSR6
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
  */
 class CacheItem implements CacheItemInterface
 {
@@ -27,28 +33,28 @@ class CacheItem implements CacheItemInterface
      *
      * @var string
      */
-    private $_key;
+    private string $key;
 
     /**
      * The cache item's value.
      *
      * @var mixed
      */
-    private $_value;
+    private mixed $value;
 
     /**
      * Whether this cache item exists in the cache.
      *
      * @var bool
      */
-    private $_isHit;
+    private bool $isHit;
 
     /**
      * The cache item's expiration time.
      *
      * @var DateTimeInterface|null
      */
-    private $_expiration;
+    private ?DateTimeInterface $expiration;
 
     /**
      * Create a new cache item.
@@ -57,8 +63,8 @@ class CacheItem implements CacheItemInterface
      */
     public function __construct(string $key)
     {
-        $this->_key = $key;
-        $this->_isHit = false;
+        $this->key = $key;
+        $this->isHit = false;
     }
 
     /**
@@ -68,7 +74,7 @@ class CacheItem implements CacheItemInterface
      */
     public function getKey(): string
     {
-        return $this->_key;
+        return $this->key;
     }
 
     /**
@@ -78,7 +84,7 @@ class CacheItem implements CacheItemInterface
      */
     public function get(): mixed
     {
-        return $this->_value;
+        return $this->value;
     }
 
     /**
@@ -88,7 +94,7 @@ class CacheItem implements CacheItemInterface
      */
     public function isHit(): bool
     {
-        return $this->_isHit;
+        return $this->isHit;
     }
 
     /**
@@ -99,7 +105,7 @@ class CacheItem implements CacheItemInterface
      */
     public function set(mixed $value): static
     {
-        $this->_value = $value;
+        $this->value = $value;
         return $this;
     }
 
@@ -111,7 +117,7 @@ class CacheItem implements CacheItemInterface
      */
     public function expiresAt(?DateTimeInterface $expiration): static
     {
-        $this->_expiration = $expiration;
+        $this->expiration = $expiration;
         return $this;
     }
 
@@ -124,11 +130,11 @@ class CacheItem implements CacheItemInterface
     public function expiresAfter($time): static
     {
         if ($time instanceof DateInterval) {
-            $this->_expiration = (new DateTime())->add($time);
+            $this->expiration = (new DateTime())->add($time);
         } elseif (is_int($time)) {
-            $this->_expiration = (new DateTime())->add(new DateInterval("PT{$time}S"));
+            $this->expiration = (new DateTime())->add(new DateInterval("PT{$time}S"));
         } else {
-            $this->_expiration = null;
+            $this->expiration = null;
         }
         return $this;
     }
@@ -140,16 +146,18 @@ class CacheItem implements CacheItemInterface
      */
     public function getExpiration(): ?DateTimeInterface
     {
-        return $this->_expiration;
+        return $this->expiration;
     }
 
     /**
      * Sets whether this cache item exists in the cache.
      *
      * @param bool $hit True if the item exists in cache
+     * 
+     * @return void
      */
     public function setIsHit(bool $hit): void
     {
-        $this->_isHit = $hit;
+        $this->isHit = $hit;
     }
 }

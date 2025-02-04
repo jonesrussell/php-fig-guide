@@ -2,7 +2,7 @@
 
 /**
  * Example implementation of PSR-6 Caching Interface.
- * 
+ *
  * This file implements the CacheItemPoolInterface using the filesystem
  * as a storage backend.
  */
@@ -18,11 +18,17 @@ use JonesRussell\PhpFigGuide\PSR6\CacheItem;
 
 /**
  * File-based cache pool implementation following PSR-6.
- * 
+ *
  * This class provides a simple file-based caching system that:
  * - Stores each cache item in a separate file
  * - Supports deferred saves
  * - Handles cache item expiration
+ * 
+ * @category Cache
+ * @package  JonesRussell\PhpFigGuide\PSR6
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
  */
 class FileCachePool implements CacheItemPoolInterface
 {
@@ -31,14 +37,14 @@ class FileCachePool implements CacheItemPoolInterface
      *
      * @var string
      */
-    private $_directory;
+    private string $directory;
 
     /**
      * Items that are queued for deferred saving.
      *
      * @var array<string, CacheItemInterface>
      */
-    private $_deferred = [];
+    private array $deferred = [];
 
     /**
      * Initialize the cache pool with a storage directory.
@@ -51,7 +57,8 @@ class FileCachePool implements CacheItemPoolInterface
         if (!is_dir($directory) && !mkdir($directory, 0777, true)) {
             throw new RuntimeException("Cannot create cache directory: {$directory}");
         }
-        $this->_directory = $directory;
+        
+        $this->directory = $directory;
     }
 
     /**
@@ -63,14 +70,14 @@ class FileCachePool implements CacheItemPoolInterface
      */
     public function getItem($key): CacheItemInterface
     {
-        $this->_validateKey($key);
-        
-        if (isset($this->_deferred[$key])) {
-            return $this->_deferred[$key];
+        $this->validateKey($key);
+
+        if (isset($this->deferred[$key])) {
+            return $this->deferred[$key];
         }
 
         $item = new CacheItem($key);
-        $path = $this->_getPath($key);
+        $path = $this->getPath($key);
 
         if (file_exists($path)) {
             try {
@@ -123,9 +130,9 @@ class FileCachePool implements CacheItemPoolInterface
      */
     public function clear(): bool
     {
-        $this->_deferred = [];
-        $files = glob($this->_directory . '/*.cache');
-        
+        $this->deferred = [];
+        $files = glob($this->directory . '/*.cache');
+
         if ($files === false) {
             return false;
         }
@@ -148,10 +155,10 @@ class FileCachePool implements CacheItemPoolInterface
      */
     public function deleteItem($key): bool
     {
-        $this->_validateKey($key);
-        unset($this->_deferred[$key]);
-        
-        $path = $this->_getPath($key);
+        $this->validateKey($key);
+        unset($this->deferred[$key]);
+
+        $path = $this->getPath($key);
         if (file_exists($path)) {
             return unlink($path);
         }
@@ -187,7 +194,7 @@ class FileCachePool implements CacheItemPoolInterface
             throw new InvalidArgumentException('Cache items must be instances of ' . CacheItem::class);
         }
 
-        $path = $this->_getPath($item->getKey());
+        $path = $this->getPath($item->getKey());
         $data = [
             'value' => $item->get(),
             'expiration' => $item->getExpiration()
@@ -211,7 +218,7 @@ class FileCachePool implements CacheItemPoolInterface
      */
     public function saveDeferred(CacheItemInterface $item): bool
     {
-        $this->_deferred[$item->getKey()] = $item;
+        $this->deferred[$item->getKey()] = $item;
         return true;
     }
 
@@ -223,12 +230,12 @@ class FileCachePool implements CacheItemPoolInterface
     public function commit(): bool
     {
         $success = true;
-        foreach ($this->_deferred as $item) {
+        foreach ($this->deferred as $item) {
             if (!$this->save($item)) {
                 $success = false;
             }
         }
-        $this->_deferred = [];
+        $this->deferred = [];
         return $success;
     }
 
@@ -238,9 +245,9 @@ class FileCachePool implements CacheItemPoolInterface
      * @param  string $key The cache key
      * @return string The file path
      */
-    private function _getPath(string $key): string
+    private function getPath(string $key): string
     {
-        return $this->_directory . '/' . sha1($key) . '.cache';
+        return $this->directory . '/' . sha1($key) . '.cache';
     }
 
     /**
@@ -249,7 +256,7 @@ class FileCachePool implements CacheItemPoolInterface
      * @param  string $key The key to validate
      * @throws InvalidArgumentException If the key is invalid
      */
-    private function _validateKey(string $key): void
+    private function validateKey(string $key): void
     {
         if (!is_string($key) || preg_match('#[{}()/@:\\\\]#', $key)) {
             throw new InvalidArgumentException(

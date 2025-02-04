@@ -1,24 +1,21 @@
 <?php
 
-/**
- * Example implementation of PSR-3 Logger Interface.
- * 
- * This class demonstrates a logger that writes to files and sends critical
- * messages to Slack, following PSR-3 guidelines.
- */
-
 namespace JonesRussell\PhpFigGuide\PSR3;
 
 use Psr\Log\AbstractLogger;
 use Psr\Log\LogLevel;
 
 /**
- * Smart logger implementation that writes to files and Slack.
- * 
- * This logger:
- * - Writes all messages to a log file
- * - Sends critical and emergency messages to Slack
- * - Supports message context interpolation
+ * Example implementation of PSR-3 Logger Interface.
+ *
+ * This class demonstrates a logger that writes to files and sends critical
+ * messages to Slack, following PSR-3 guidelines.
+ *
+ * @category Logging
+ * @package  JonesRussell\PhpFigGuide\PSR3
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
  */
 class SmartLogger extends AbstractLogger
 {
@@ -27,14 +24,14 @@ class SmartLogger extends AbstractLogger
      *
      * @var string
      */
-    private $_logFile;
+    private string $logFile;
 
     /**
      * Slack webhook URL for notifications.
      *
      * @var string
      */
-    private $_slackWebhook;
+    private string $slackWebhook;
 
     /**
      * Initialize the logger with file and Slack configuration.
@@ -44,8 +41,8 @@ class SmartLogger extends AbstractLogger
      */
     public function __construct(string $logFile, string $slackWebhook)
     {
-        $this->_logFile = $logFile;
-        $this->_slackWebhook = $slackWebhook;
+        $this->logFile = $logFile;
+        $this->slackWebhook = $slackWebhook;
     }
 
     /**
@@ -60,15 +57,15 @@ class SmartLogger extends AbstractLogger
     {
         // Format the message
         $timestamp = date('Y-m-d H:i:s');
-        $message = $this->_interpolate((string)$message, $context);
+        $message = $this->interpolate((string)$message, $context);
         $logLine = "[$timestamp] [$level] $message" . PHP_EOL;
-        
+
         // Always write to file
-        file_put_contents($this->_logFile, $logLine, FILE_APPEND);
-        
+        file_put_contents($this->logFile, $logLine, FILE_APPEND);
+
         // Send critical and emergency messages to Slack
         if (in_array($level, [LogLevel::CRITICAL, LogLevel::EMERGENCY])) {
-            $this->_notifySlack($level, $message);
+            $this->notifySlack($level, $message);
         }
     }
 
@@ -77,18 +74,20 @@ class SmartLogger extends AbstractLogger
      *
      * @param string $level   Log level
      * @param string $message Message to send
+     *  
+     * @return void
      */
-    private function _notifySlack($level, $message)
+    private function notifySlack($level, $message)
     {
         $emoji = $level === LogLevel::EMERGENCY ? '🔥' : '⚠️';
         $payload = json_encode(
             [
-            'text' => "$emoji *$level*: $message"
+                'text' => "$emoji *$level*: $message"
             ]
         );
 
         // Send to Slack (simplified for example)
-        $ch = curl_init($this->_slackWebhook);
+        $ch = curl_init($this->slackWebhook);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
         curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -103,12 +102,13 @@ class SmartLogger extends AbstractLogger
      * @param  array  $context Values to replace placeholders
      * @return string Interpolated message
      */
-    private function _interpolate($message, array $context = array())
+    private function interpolate($message, array $context = array())
     {
         $replace = array();
         foreach ($context as $key => $val) {
             $replace['{' . $key . '}'] = $val;
         }
-        return strtr($message, $replace);
+        $interpolatedMessage = strtr($message, $replace);
+        return $interpolatedMessage;
     }
 }

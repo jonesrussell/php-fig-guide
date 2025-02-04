@@ -2,7 +2,7 @@
 
 /**
  * Example implementation of PSR-1 Basic Coding Standard.
- * 
+ *
  * This class demonstrates proper naming conventions and basic structure
  * according to PSR-1 guidelines.
  */
@@ -11,7 +11,7 @@ namespace JonesRussell\PhpFigGuide\PSR1;
 
 /**
  * User management class following PSR-1 standards.
- * 
+ *
  * Demonstrates:
  * - StudlyCaps for class name
  * - Constants in UPPER_CASE
