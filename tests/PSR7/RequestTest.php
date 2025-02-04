@@ -34,14 +34,14 @@ class RequestTest extends TestCase
 
     public function testCreateRequest(): void
     {
-        $uri = $this->createMockUri();
+        $uri = new Uri('http://new-authority.com/some/path');
         $stream = $this->createMockStream();
 
         $request = new Request('GET', $uri, [], $stream);
         $this->assertInstanceOf(Request::class, $request);
 
         $this->assertEquals('GET', $request->getMethod());
-        $this->assertEquals('http://new-authority.com', (string) $request->getUri());
+        $this->assertEquals('http://new-authority.com/some/path', (string) $request->getUri());
         $this->assertEquals('1.1', $request->getProtocolVersion());
     }
 
