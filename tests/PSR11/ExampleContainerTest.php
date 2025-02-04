@@ -46,4 +46,21 @@ class ExampleContainerTest extends TestCase
         $dbService = $this->container->get('database');
         $this->assertEquals("Database connected!", $dbService->connect());
     }
+
+    public function testServiceOverwriting(): void
+    {
+        $this->container->set('test.service', 'First Service');
+        $this->container->set('test.service', 'Second Service');
+        $this->assertEquals('Second Service', $this->container->get('test.service'));
+    }
+
+    public function testGetAllServices(): void
+    {
+        $this->container->set('service1', 'Service 1');
+        $this->container->set('service2', 'Service 2');
+        $services = $this->container->getServices();
+        $this->assertCount(2, $services);
+        $this->assertArrayHasKey('service1', $services);
+        $this->assertArrayHasKey('service2', $services);
+    }
 } 
