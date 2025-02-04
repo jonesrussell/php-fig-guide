@@ -42,11 +42,11 @@ class Response extends Message implements ResponseInterface
     /**
      * Creates a new Response instance
      *
-     * @param int $status HTTP status code
-     * @param array $headers Response headers
-     * @param StreamInterface|null $body Response body
-     * @param string $version Protocol version
-     * @param string $reason Reason phrase
+     * @param int                  $status  HTTP status code
+     * @param array                $headers Response headers
+     * @param StreamInterface|null $body    Response body
+     * @param string               $version Protocol version
+     * @param string               $reason  Reason phrase
      */
     public function __construct(
         int $status = 200,
@@ -77,8 +77,8 @@ class Response extends Message implements ResponseInterface
     /**
      * Returns an instance with the specified status code and, optionally, reason phrase
      *
-     * @param int $code The 3-digit integer result code to set
-     * @param string $reasonPhrase The reason phrase to use with the status code
+     * @param  int    $code         The 3-digit integer result code to set
+     * @param  string $reasonPhrase The reason phrase to use with the status code
      * @return static
      */
     public function withStatus($code, $reasonPhrase = ''): static

@@ -13,11 +13,12 @@ require_once __DIR__ . '/../../vendor/autoload.php'; // Include the Composer aut
  * Mock class for a database connection
  * 
  * @property string $connectionMessage
- * @method void __construct()
- * @method string connect()
- * @method void log(string $message)
+ * @method   void __construct()
+ * @method   string connect()
+ * @method   void log(string $message)
  */
-class DatabaseConnection {
+class DatabaseConnection
+{
     /**
      * Message returned when the database is connected
      * 
@@ -28,7 +29,8 @@ class DatabaseConnection {
     /**
      * Constructor for the DatabaseConnection class
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->connectionMessage = "Database connected!";
     }
 
@@ -37,7 +39,8 @@ class DatabaseConnection {
      * 
      * @return string
      */
-    public function connect(): string {
+    public function connect(): string
+    {
         return $this->connectionMessage;
     }
 }
@@ -47,13 +50,15 @@ class DatabaseConnection {
  * 
  * @method void log(string $message)
  */
-class Logger {
+class Logger
+{
     /**
      * Log a message
      * 
      * @param string $message
      */
-    public function logline(string $message): void {
+    public function logline(string $message): void
+    {
         echo "Log: $message\n\n";
     }
 }
@@ -87,7 +92,8 @@ $logger->logline($connectionMessage); // Log the connection message
 /**
  * Print the contents of the container
  */
-function printContainer($container): void {
+function printContainer($container): void
+{
     $logger = $container->get('logger'); // Retrieve the logger from the container
     $logger->logline("Container Services:"); // Log the header
 

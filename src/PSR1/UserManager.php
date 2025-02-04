@@ -32,7 +32,7 @@ class UserManager
     /**
      * Get user information by ID.
      *
-     * @param int $id The user ID to retrieve
+     * @param  int $id The user ID to retrieve
      * @return array User data with 'id' and 'name' keys
      */
     public function getUserById($id)

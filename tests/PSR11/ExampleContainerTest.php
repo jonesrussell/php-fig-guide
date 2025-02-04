@@ -37,11 +37,14 @@ class ExampleContainerTest extends TestCase
 
     public function testSetServiceWithDependency(): void
     {
-        $this->container->set('database', new class {
-            public function connect() {
-                return "Database connected!";
+        $this->container->set(
+            'database', new class {
+                public function connect()
+                {
+                    return "Database connected!";
+                }
             }
-        });
+        );
 
         $dbService = $this->container->get('database');
         $this->assertEquals("Database connected!", $dbService->connect());

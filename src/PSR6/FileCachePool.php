@@ -43,7 +43,7 @@ class FileCachePool implements CacheItemPoolInterface
     /**
      * Initialize the cache pool with a storage directory.
      *
-     * @param string $directory Directory path for cache files
+     * @param  string $directory Directory path for cache files
      * @throws RuntimeException If directory cannot be created
      */
     public function __construct(string $directory)
@@ -57,7 +57,7 @@ class FileCachePool implements CacheItemPoolInterface
     /**
      * Returns a Cache Item representing the specified key.
      *
-     * @param string $key The key for which to return the corresponding Cache Item
+     * @param  string $key The key for which to return the corresponding Cache Item
      * @return CacheItemInterface The corresponding Cache Item
      * @throws InvalidArgumentException If the key string is not legal
      */
@@ -92,7 +92,7 @@ class FileCachePool implements CacheItemPoolInterface
     /**
      * Returns a traversable set of cache items.
      *
-     * @param array $keys An indexed array of keys of items to retrieve
+     * @param  array $keys An indexed array of keys of items to retrieve
      * @return iterable<string, CacheItemInterface> A traversable collection of Cache Items keyed by the cache keys
      */
     public function getItems(array $keys = []): iterable
@@ -107,7 +107,7 @@ class FileCachePool implements CacheItemPoolInterface
     /**
      * Confirms if the cache contains specified cache item.
      *
-     * @param string $key The key for which to check existence
+     * @param  string $key The key for which to check existence
      * @return bool True if item exists in the cache and has not expired
      * @throws InvalidArgumentException If the key string is not legal
      */
@@ -142,7 +142,7 @@ class FileCachePool implements CacheItemPoolInterface
     /**
      * Removes the item from the pool.
      *
-     * @param string $key The key to delete
+     * @param  string $key The key to delete
      * @return bool True if the item was successfully removed
      * @throws InvalidArgumentException If the key string is not legal
      */
@@ -161,7 +161,7 @@ class FileCachePool implements CacheItemPoolInterface
     /**
      * Removes multiple items from the pool.
      *
-     * @param array $keys An array of keys that should be removed from the pool
+     * @param  array $keys An array of keys that should be removed from the pool
      * @return bool True if the items were successfully removed
      */
     public function deleteItems(array $keys): bool
@@ -178,7 +178,7 @@ class FileCachePool implements CacheItemPoolInterface
     /**
      * Persists a cache item immediately.
      *
-     * @param CacheItemInterface $item The cache item to save
+     * @param  CacheItemInterface $item The cache item to save
      * @return bool True if the item was successfully persisted
      */
     public function save(CacheItemInterface $item): bool
@@ -206,7 +206,7 @@ class FileCachePool implements CacheItemPoolInterface
     /**
      * Sets a cache item to be persisted later.
      *
-     * @param CacheItemInterface $item The cache item to save
+     * @param  CacheItemInterface $item The cache item to save
      * @return bool True if the item was successfully queued
      */
     public function saveDeferred(CacheItemInterface $item): bool
@@ -235,7 +235,7 @@ class FileCachePool implements CacheItemPoolInterface
     /**
      * Gets the cache file path for a key.
      *
-     * @param string $key The cache key
+     * @param  string $key The cache key
      * @return string The file path
      */
     private function _getPath(string $key): string
@@ -246,7 +246,7 @@ class FileCachePool implements CacheItemPoolInterface
     /**
      * Validates a cache key.
      *
-     * @param string $key The key to validate
+     * @param  string $key The key to validate
      * @throws InvalidArgumentException If the key is invalid
      */
     private function _validateKey(string $key): void

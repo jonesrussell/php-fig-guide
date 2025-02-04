@@ -37,7 +37,7 @@ interface RequestInterface extends MessageInterface
      * this method may be used to create an instance with the specified
      * request-target, verbatim.
      *
-     * @param string $requestTarget
+     * @param  string $requestTarget
      * @return static
      */
     public function withRequestTarget(string $requestTarget): self;
@@ -56,7 +56,7 @@ interface RequestInterface extends MessageInterface
      * method names are case-sensitive and thus implementations SHOULD NOT
      * modify the given string.
      *
-     * @param string $method Case-sensitive method.
+     * @param  string $method Case-sensitive method.
      * @return static
      * @throws \InvalidArgumentException for invalid HTTP methods.
      */
@@ -93,8 +93,8 @@ interface RequestInterface extends MessageInterface
      * - If a Host header is present and non-empty, this method MUST NOT update
      *   the Host header in the returned request.
      *
-     * @param UriInterface $uri New request URI to use.
-     * @param bool $preserveHost Preserve the original state of the Host header.
+     * @param  UriInterface $uri          New request URI to use.
+     * @param  bool         $preserveHost Preserve the original state of the Host header.
      * @return static
      */
     public function withUri(UriInterface $uri, bool $preserveHost = false): self;

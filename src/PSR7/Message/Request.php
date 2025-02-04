@@ -26,8 +26,8 @@ class Request extends Message implements RequestInterface
     protected UriInterface $uri;
 
     /**
-     * @param string $method
-     * @param string $requestTarget
+     * @param string       $method
+     * @param string       $requestTarget
      * @param UriInterface $uri
      */
     public function __construct(string $method, string $requestTarget, UriInterface $uri)
@@ -47,7 +47,7 @@ class Request extends Message implements RequestInterface
     }
 
     /**
-     * @param string $requestTarget
+     * @param  string $requestTarget
      * @return self
      */
     public function withRequestTarget(string $requestTarget): self
@@ -66,7 +66,7 @@ class Request extends Message implements RequestInterface
     }
 
     /**
-     * @param string $method
+     * @param  string $method
      * @return self
      */ 
     public function withMethod(string $method): self
@@ -79,7 +79,6 @@ class Request extends Message implements RequestInterface
     /**
      * @return UriInterface
      */
-
     public function getUri(): UriInterface
     {
         return $this->uri;
@@ -92,8 +91,8 @@ class Request extends Message implements RequestInterface
      * default if the URI contains a host component. If the URI does not
      * contain a host component, any pre-existing Host header MUST be carried
      * 
-     * @param UriInterface $uri
-     * @param bool $preserveHost
+     * @param  UriInterface $uri
+     * @param  bool         $preserveHost
      * @return self
      */
     public function withUri(UriInterface $uri, bool $preserveHost = false): self

@@ -42,7 +42,7 @@ abstract class Message implements MessageInterface
     /**
      * Returns an instance with the specified HTTP protocol version
      *
-     * @param string $version HTTP protocol version
+     * @param  string $version HTTP protocol version
      * @return static
      */
     public function withProtocolVersion($version): static
@@ -65,7 +65,7 @@ abstract class Message implements MessageInterface
     /**
      * Checks if a header exists by the given case-insensitive name
      *
-     * @param string $name Case-insensitive header field name
+     * @param  string $name Case-insensitive header field name
      * @return bool Returns true if any header names match the given name
      */
     public function hasHeader($name): bool
@@ -76,7 +76,7 @@ abstract class Message implements MessageInterface
     /**
      * Retrieves a message header value by the given case-insensitive name
      *
-     * @param string $name Case-insensitive header field name
+     * @param  string $name Case-insensitive header field name
      * @return string[] An array of string values as provided for the header
      */
     public function getHeader($name): array
@@ -91,7 +91,7 @@ abstract class Message implements MessageInterface
     /**
      * Retrieves a comma-separated string of the values for a single header
      *
-     * @param string $name Case-insensitive header field name
+     * @param  string $name Case-insensitive header field name
      * @return string A string of values as provided for the header
      */
     public function getHeaderLine($name): string
@@ -102,8 +102,8 @@ abstract class Message implements MessageInterface
     /**
      * Returns an instance with the provided header, replacing any existing values
      *
-     * @param string $name Case-insensitive header field name
-     * @param string|string[] $value Header value(s)
+     * @param  string          $name  Case-insensitive header field name
+     * @param  string|string[] $value Header value(s)
      * @return static
      */
     public function withHeader($name, $value): static
@@ -116,8 +116,8 @@ abstract class Message implements MessageInterface
     /**
      * Returns an instance with the specified header appended with the value
      *
-     * @param string $name Case-insensitive header field name
-     * @param string|string[] $value Header value(s)
+     * @param  string          $name  Case-insensitive header field name
+     * @param  string|string[] $value Header value(s)
      * @return static
      */
     public function withAddedHeader($name, $value): static
@@ -134,7 +134,7 @@ abstract class Message implements MessageInterface
     /**
      * Returns an instance without the specified header
      *
-     * @param string $name Case-insensitive header field name
+     * @param  string $name Case-insensitive header field name
      * @return static
      */
     public function withoutHeader($name): static
@@ -157,7 +157,7 @@ abstract class Message implements MessageInterface
     /**
      * Returns an instance with the specified message body
      *
-     * @param StreamInterface $body Body
+     * @param  StreamInterface $body Body
      * @return static
      */
     public function withBody(StreamInterface $body): static

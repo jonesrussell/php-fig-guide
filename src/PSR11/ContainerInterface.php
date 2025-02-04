@@ -17,7 +17,7 @@ interface ContainerInterface
      * $database = $container->get('database');
      * ```
      *
-     * @param string $id
+     * @param  string $id
      * @return mixed
      * @throws NotFoundExceptionInterface If the entry is not found.
      * @throws ContainerExceptionInterface If there is an error retrieving the entry.
@@ -34,7 +34,7 @@ interface ContainerInterface
      * $exists = $container->has('database'); // Returns true
      * ```
      *
-     * @param string $id
+     * @param  string $id
      * @return bool
      */
     public function has($id): bool;
@@ -49,7 +49,7 @@ interface ContainerInterface
      * ```
      *
      * @param string $id
-     * @param mixed $service The service to be stored in the container.
+     * @param mixed  $service The service to be stored in the container.
      */
     public function set(string $id, $service): void;
 }

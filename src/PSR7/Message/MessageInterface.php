@@ -22,7 +22,7 @@ interface MessageInterface
     /**
      * Returns an instance with the specified HTTP protocol version.
      *
-     * @param string $version HTTP protocol version
+     * @param  string $version HTTP protocol version
      * @return static
      */
     public function withProtocolVersion(string $version): self;
@@ -37,7 +37,7 @@ interface MessageInterface
     /**
      * Checks if a header exists by the given case-insensitive name.
      *
-     * @param string $name Case-insensitive header field name.
+     * @param  string $name Case-insensitive header field name.
      * @return bool Returns true if any header names match the given header name using a case-insensitive string comparison.
      */
     public function hasHeader(string $name): bool;
@@ -45,7 +45,7 @@ interface MessageInterface
     /**
      * Gets a message header value by the given case-insensitive name.
      *
-     * @param string $name Case-insensitive header field name.
+     * @param  string $name Case-insensitive header field name.
      * @return string[] An array of string values as provided for the given header.
      */
     public function getHeader(string $name): array;
@@ -53,7 +53,7 @@ interface MessageInterface
     /**
      * Gets a comma-separated string of the values for a single header.
      *
-     * @param string $name Case-insensitive header field name.
+     * @param  string $name Case-insensitive header field name.
      * @return string A string of values as provided for the given header concatenated together using a comma.
      */
     public function getHeaderLine(string $name): string;
@@ -61,8 +61,8 @@ interface MessageInterface
     /**
      * Returns an instance with the provided value replacing the specified header.
      *
-     * @param string $name Case-insensitive header field name.
-     * @param string|string[] $value Header value(s).
+     * @param  string          $name  Case-insensitive header field name.
+     * @param  string|string[] $value Header value(s).
      * @return static
      */
     public function withHeader(string $name, $value): self;
@@ -70,8 +70,8 @@ interface MessageInterface
     /**
      * Returns an instance with the specified header appended with the given value.
      *
-     * @param string $name Case-insensitive header field name to add.
-     * @param string|string[] $value Header value(s).
+     * @param  string          $name  Case-insensitive header field name to add.
+     * @param  string|string[] $value Header value(s).
      * @return static
      */
     public function withAddedHeader(string $name, $value): self;
@@ -79,7 +79,7 @@ interface MessageInterface
     /**
      * Returns an instance without the specified header.
      *
-     * @param string $name Case-insensitive header field name to remove.
+     * @param  string $name Case-insensitive header field name to remove.
      * @return static
      */
     public function withoutHeader(string $name): self;
@@ -94,7 +94,7 @@ interface MessageInterface
     /**
      * Returns an instance with the specified message body.
      *
-     * @param StreamInterface $body Body.
+     * @param  StreamInterface $body Body.
      * @return static
      */
     public function withBody(StreamInterface $body): self;

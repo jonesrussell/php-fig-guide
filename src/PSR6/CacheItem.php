@@ -94,7 +94,7 @@ class CacheItem implements CacheItemInterface
     /**
      * Sets the value represented by this cache item.
      *
-     * @param mixed $value The value to store
+     * @param  mixed $value The value to store
      * @return static The invoked object
      */
     public function set(mixed $value): static
@@ -106,7 +106,7 @@ class CacheItem implements CacheItemInterface
     /**
      * Sets the expiration time for this cache item.
      *
-     * @param DateTimeInterface|null $expiration The expiration time
+     * @param  DateTimeInterface|null $expiration The expiration time
      * @return static The invoked object
      */
     public function expiresAt(?DateTimeInterface $expiration): static
@@ -118,7 +118,7 @@ class CacheItem implements CacheItemInterface
     /**
      * Sets the expiration time for this cache item.
      *
-     * @param DateInterval|int|null $time The expiration time
+     * @param  DateInterval|int|null $time The expiration time
      * @return static The invoked object
      */
     public function expiresAfter($time): static

@@ -73,7 +73,7 @@ class ExampleContainer implements ContainerInterface
      * Set an entry in the container.
      *
      * @param string $id
-     * @param mixed $service
+     * @param mixed  $service
      */
     public function set(string $id, $service): void
     {
@@ -83,7 +83,7 @@ class ExampleContainer implements ContainerInterface
     /**
      * Get an entry from the container.
      *
-     * @param string $id
+     * @param  string $id
      * @return mixed
      * @throws NotFoundExceptionInterface
      */
@@ -103,7 +103,8 @@ class ExampleContainer implements ContainerInterface
          * @throws NotFoundExceptionInterface
          */
         if (!$this->has($id)) {
-            throw new class extends \Exception implements NotFoundExceptionInterface {};
+            throw new class extends \Exception implements NotFoundExceptionInterface {
+            };
         }
 
         /**
@@ -123,7 +124,7 @@ class ExampleContainer implements ContainerInterface
     /**
      * Check if a service exists in the container.
      *
-     * @param string $id
+     * @param  string $id
      * @return bool
      */ 
     public function has($id): bool

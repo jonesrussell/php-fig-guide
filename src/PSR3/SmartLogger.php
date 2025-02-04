@@ -39,7 +39,7 @@ class SmartLogger extends AbstractLogger
     /**
      * Initialize the logger with file and Slack configuration.
      *
-     * @param string $logFile Path to the log file
+     * @param string $logFile      Path to the log file
      * @param string $slackWebhook Slack webhook URL
      */
     public function __construct(string $logFile, string $slackWebhook)
@@ -51,9 +51,9 @@ class SmartLogger extends AbstractLogger
     /**
      * Logs with an arbitrary level.
      *
-     * @param mixed                $level   Log level
-     * @param string|\Stringable   $message Message to log
-     * @param array               $context Context data for interpolation
+     * @param  mixed              $level   Log level
+     * @param  string|\Stringable $message Message to log
+     * @param  array              $context Context data for interpolation
      * @return void
      */
     public function log($level, string|\Stringable $message, array $context = []): void
@@ -81,9 +81,11 @@ class SmartLogger extends AbstractLogger
     private function _notifySlack($level, $message)
     {
         $emoji = $level === LogLevel::EMERGENCY ? '🔥' : '⚠️';
-        $payload = json_encode([
+        $payload = json_encode(
+            [
             'text' => "$emoji *$level*: $message"
-        ]);
+            ]
+        );
 
         // Send to Slack (simplified for example)
         $ch = curl_init($this->_slackWebhook);
@@ -97,8 +99,8 @@ class SmartLogger extends AbstractLogger
     /**
      * Interpolates context values into message placeholders.
      *
-     * @param string $message Message with placeholders
-     * @param array  $context Values to replace placeholders
+     * @param  string $message Message with placeholders
+     * @param  array  $context Values to replace placeholders
      * @return string Interpolated message
      */
     private function _interpolate($message, array $context = array())
