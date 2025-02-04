@@ -24,7 +24,7 @@ class Request extends Message implements RequestInterface
     private string $method;
     private string $requestTarget;
     private UriInterface $uri;
-    private array $headers;
+    protected array $headers;
 
     /**
      * Constructor for the Request class.
@@ -42,7 +42,7 @@ class Request extends Message implements RequestInterface
         ?StreamInterface $body = null,
         string $version = '1.1'
     ) {
-        parent::__construct($version, $body);
+        parent::__construct($body ?? new Stream(), $version);
         $this->method = strtoupper($method);
         $this->uri = $uri;
         $this->headers = $headers;

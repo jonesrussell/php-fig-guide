@@ -27,6 +27,7 @@ class Uri implements UriInterface
     private string $path = '';
     private string $query = '';
     private string $fragment = '';
+    private string $authority = '';
 
     /**
      * Constructor for the Uri class.
@@ -296,6 +297,19 @@ class Uri implements UriInterface
     {
         $new = clone $this;
         $new->scheme = strtolower($scheme);
+        return $new;
+    }
+
+    /**
+     * Returns an instance with the specified authority.
+     *
+     * @param string $authority The authority to set.
+     * @return static A new instance with the specified authority.
+     */
+    public function withAuthority(string $authority): static
+    {
+        $new = clone $this;
+        $new->authority = $authority;
         return $new;
     }
 }

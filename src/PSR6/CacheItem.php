@@ -54,7 +54,7 @@ class CacheItem implements CacheItemInterface
      *
      * @var DateTimeInterface|null
      */
-    private ?DateTimeInterface $expiration;
+    private ?DateTimeInterface $expiration = null;
 
     /**
      * Create a new cache item.
