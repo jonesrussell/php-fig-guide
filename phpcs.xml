@@ -22,7 +22,6 @@
 	<rule ref="Generic.WhiteSpace.DisallowTabIndent" />
 	<rule ref="MySource.PHP.EvalObjectFactory" />
 	<rule ref="MySource.PHP.GetRequestData" />
-	<rule ref="MySource.PHP.ReturnFunctionValue" />
 	<rule ref="MySource.PHP.AjaxNullComparison" />
 	<rule ref="PEAR.Classes.ClassDeclaration" />
 	<rule ref="PEAR.Commenting.ClassComment" />
