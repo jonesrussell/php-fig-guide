@@ -50,6 +50,26 @@ class ExampleContainer implements ContainerInterface
     private array $services = [];
 
     /**
+     * ExampleContainer constructor.
+     * Prints a message indicating that the container has been created.
+     */
+    public function __construct()
+    {
+        echo "Container created!\n\n"; // Print message when the container is created
+        $this->printServices("Initial Services in Container:"); // Print the services in the container
+    }
+
+    /**
+     * Print the services stored in the container.
+     *
+     * @param string $header Optional header for the output.
+     */
+    public function printServices(string $header = "Services in Container:"): void
+    {
+        echo $header . "\n" . json_encode($this->services, JSON_PRETTY_PRINT) . "\n";
+    }
+
+    /**
      * Set an entry in the container.
      *
      * @param string $id
