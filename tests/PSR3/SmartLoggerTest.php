@@ -21,8 +21,8 @@ use Psr\Log\LogLevel;
  */
 class SmartLoggerTest extends TestCase
 {
-    private string $_logFile;
-    private SmartLogger $_logger;
+    private string $logFile;
+    private SmartLogger $logger;
 
     /**
      * Set up the test environment.
@@ -34,12 +34,12 @@ class SmartLoggerTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->_logFile = sys_get_temp_dir() . '/test.log';
-        $this->_logger = new SmartLogger($this->_logFile, 'https://hooks.slack.com/test');
+        $this->logFile = sys_get_temp_dir() . '/test.log';
+        $this->logger = new SmartLogger($this->logFile, 'https://hooks.slack.com/test');
 
         // Clean up any existing log file
-        if (file_exists($this->_logFile)) {
-            unlink($this->_logFile);
+        if (file_exists($this->logFile)) {
+            unlink($this->logFile);
         }
     }
 
@@ -52,8 +52,8 @@ class SmartLoggerTest extends TestCase
      */
     protected function tearDown(): void
     {
-        if (file_exists($this->_logFile)) {
-            unlink($this->_logFile);
+        if (file_exists($this->logFile)) {
+            unlink($this->logFile);
         }
     }
 
@@ -68,10 +68,10 @@ class SmartLoggerTest extends TestCase
     public function testLogWritesToFile(): void
     {
         $message = 'Test log message';
-        $this->_logger->info($message);
+        $this->logger->info($message);
 
-        $this->assertFileExists($this->_logFile);
-        $contents = file_get_contents($this->_logFile);
+        $this->assertFileExists($this->logFile);
+        $contents = file_get_contents($this->logFile);
         $this->assertStringContainsString($message, $contents);
         $this->assertStringContainsString('[info]', $contents);
     }
@@ -86,9 +86,9 @@ class SmartLoggerTest extends TestCase
      */
     public function testLogWithContext(): void
     {
-        $this->_logger->error('User {user} not found', ['user' => 'john']);
+        $this->logger->error('User {user} not found', ['user' => 'john']);
 
-        $contents = file_get_contents($this->_logFile);
+        $contents = file_get_contents($this->logFile);
         $this->assertStringContainsString('User john not found', $contents);
         $this->assertStringContainsString('[error]', $contents);
     }
@@ -115,8 +115,8 @@ class SmartLoggerTest extends TestCase
         ];
 
         foreach ($levels as $level) {
-            $this->_logger->log($level, "Test $level message");
-            $contents = file_get_contents($this->_logFile);
+            $this->logger->log($level, "Test $level message");
+            $contents = file_get_contents($this->logFile);
             $this->assertStringContainsString("[$level]", $contents);
         }
     }
