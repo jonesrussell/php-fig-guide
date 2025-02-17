@@ -8,7 +8,7 @@ use Psr\Log\LogLevel;
 
 /**
  * Class SmartLoggerTest
- * 
+ *
  * This class tests the SmartLogger functionality.
  * It verifies that the logger correctly writes messages to a file,
  * handles context, and logs messages at various levels.
@@ -36,7 +36,7 @@ class SmartLoggerTest extends TestCase
     {
         $this->_logFile = sys_get_temp_dir() . '/test.log';
         $this->_logger = new SmartLogger($this->_logFile, 'https://hooks.slack.com/test');
-        
+
         // Clean up any existing log file
         if (file_exists($this->_logFile)) {
             unlink($this->_logFile);
@@ -120,4 +120,4 @@ class SmartLoggerTest extends TestCase
             $this->assertStringContainsString("[$level]", $contents);
         }
     }
-} 
+}

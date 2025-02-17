@@ -55,4 +55,4 @@ class PostControllerTest extends TestCase
         $this->assertArrayHasKey('status', $result);
         $this->assertEquals('Ready to blog!', $result['status']);
     }
-} 
+}

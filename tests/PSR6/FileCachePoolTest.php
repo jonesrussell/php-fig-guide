@@ -40,9 +40,9 @@ class FileCachePoolTest extends TestCase
     {
         $item = $this->pool->getItem('test.key');
         $item->set('test value');
-        
+
         $this->assertTrue($this->pool->save($item));
-        
+
         $loadedItem = $this->pool->getItem('test.key');
         $this->assertTrue($loadedItem->isHit());
         $this->assertEquals('test value', $loadedItem->get());
@@ -53,9 +53,9 @@ class FileCachePoolTest extends TestCase
         $item = $this->pool->getItem('test.key');
         $item->set('test value');
         $this->pool->save($item);
-        
+
         $this->assertTrue($this->pool->deleteItem('test.key'));
-        
+
         $newItem = $this->pool->getItem('test.key');
         $this->assertFalse($newItem->isHit());
     }
@@ -66,15 +66,15 @@ class FileCachePoolTest extends TestCase
             'key1' => 'value1',
             'key2' => 'value2'
         ];
-        
+
         foreach ($items as $key => $value) {
             $item = $this->pool->getItem($key);
             $item->set($value);
             $this->pool->save($item);
         }
-        
+
         $this->assertTrue($this->pool->clear());
-        
+
         foreach (array_keys($items) as $key) {
             $this->assertFalse($this->pool->getItem($key)->isHit());
         }
@@ -90,10 +90,10 @@ class FileCachePoolTest extends TestCase
     {
         $item = $this->pool->getItem('deferred.key');
         $item->set('deferred value');
-        
+
         $this->assertTrue($this->pool->saveDeferred($item));
         $this->assertFalse($this->pool->getItem('deferred.key')->isHit());
-        
+
         $this->assertTrue($this->pool->commit());
         $this->assertTrue($this->pool->getItem('deferred.key')->isHit());
     }

@@ -13,7 +13,7 @@ class MessageTest extends TestCase
     public function testGetProtocolVersion()
     {
         $mockBody = $this->createMock(StreamInterface::class);
-        $message = new class($mockBody) extends Message {
+        $message = new class ($mockBody) extends Message {
             public function __construct(StreamInterface $body, string $version = '1.1')
             {
                 parent::__construct($body, $version);
@@ -26,7 +26,7 @@ class MessageTest extends TestCase
     public function testWithProtocolVersion()
     {
         $mockBody = $this->createMock(StreamInterface::class);
-        $message = new class($mockBody) extends Message {
+        $message = new class ($mockBody) extends Message {
             public function __construct(StreamInterface $body, string $version = '1.1')
             {
                 parent::__construct($body, $version);
@@ -36,4 +36,4 @@ class MessageTest extends TestCase
         $newMessage = $message->withProtocolVersion('2.0');
         $this->assertEquals('2.0', $newMessage->getProtocolVersion());
     }
-} 
+}

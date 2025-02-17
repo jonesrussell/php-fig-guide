@@ -26,4 +26,4 @@ class ResponseTest extends TestCase
         $this->assertEquals(404, $newResponse->getStatusCode());
         $this->assertEquals('Not Found', $newResponse->getReasonPhrase());
     }
-} 
+}

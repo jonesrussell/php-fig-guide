@@ -80,4 +80,4 @@ class RequestTest extends TestCase
         $this->assertEquals(['application/json'], $newRequest->getHeader('Accept'));
         $this->assertFalse($request->hasHeader('Accept'));
     }
-} 
+}

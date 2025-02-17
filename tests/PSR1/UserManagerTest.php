@@ -51,7 +51,7 @@ class UserManagerTest extends TestCase
     public function testGetUserById(): void
     {
         $result = $this->userManager->getUserById(1);
-        
+
         $this->assertIsArray($result);
         $this->assertArrayHasKey('id', $result);
         $this->assertArrayHasKey('name', $result);
@@ -72,4 +72,4 @@ class UserManagerTest extends TestCase
         $this->assertEquals('1.0.0', UserManager::VERSION);
         $this->assertEquals('not_found', UserManager::ERROR_TYPE_NOT_FOUND);
     }
-} 
+}

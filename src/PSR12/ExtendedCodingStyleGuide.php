@@ -4,6 +4,18 @@ declare(strict_types=1);
 
 namespace JonesRussell\PhpFigGuide\PSR12;
 
+/**
+ * Extended Coding Style Guide for PSR-12.
+ *
+ * This class defines constants representing the rules of PSR-12
+ * and provides methods to retrieve the style guide and rule descriptions.
+ *
+ * @category Coding_Style
+ * @package  JonesRussell\PhpFigGuide\PSR12
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
+ */
 class ExtendedCodingStyleGuide
 {
     // Constants representing PSR-12 rules
@@ -16,6 +28,8 @@ class ExtendedCodingStyleGuide
 
     /**
      * Get the style guide as an associative array.
+     *
+     * This method returns an array of PSR-12 rules defined as constants.
      *
      * @return array
      */
@@ -33,6 +47,8 @@ class ExtendedCodingStyleGuide
 
     /**
      * Get a brief description of each rule.
+     *
+     * This method returns an array of descriptions for each PSR-12 rule.
      *
      * @return array
      */

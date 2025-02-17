@@ -13,6 +13,7 @@
  * @link     https://github.com/jonesrussell/php-fig-guide
  * @version  PHP 8.2
  */
+
 namespace JonesRussell\PhpFigGuide\Tests\PSR11;
 
 use PHPUnit\Framework\TestCase;
@@ -84,7 +85,8 @@ class ExampleContainerTest extends TestCase
     public function testSetServiceWithDependency(): void
     {
         $this->_container->set(
-            'database', new class {
+            'database',
+            new class {
                 public function connect()
                 {
                     return "Database connected!";
@@ -122,4 +124,4 @@ class ExampleContainerTest extends TestCase
         $this->assertArrayHasKey('service1', $services);
         $this->assertArrayHasKey('service2', $services);
     }
-} 
+}
