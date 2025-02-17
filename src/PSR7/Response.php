@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * PSR-7 Response Implementation
  *
@@ -9,6 +7,8 @@ declare(strict_types=1);
  * It provides functionality for HTTP responses including status codes
  * and reason phrases.
  */
+
+declare(strict_types=1);
 
 namespace JonesRussell\PhpFigGuide\PSR7;
 

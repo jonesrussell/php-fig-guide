@@ -44,7 +44,7 @@ interface MessageInterface
      * Checks if a header exists by the given case-insensitive name.
      *
      * @param  string $name Case-insensitive header field name.
-     * @return bool Returns true if any header names match the given header name using a case-insensitive string comparison.
+     * @return bool Returns true if any match the given header name using a case-insensitive string comparison.
      */
     public function hasHeader(string $name): bool;
 

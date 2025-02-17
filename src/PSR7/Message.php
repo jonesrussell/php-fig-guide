@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * PSR-7 Message Implementation
  *
@@ -9,6 +7,8 @@ declare(strict_types=1);
  * It provides common functionality for HTTP messages including headers,
  * protocol version, and message body handling.
  */
+
+declare(strict_types=1);
 
 namespace JonesRussell\PhpFigGuide\PSR7;
 

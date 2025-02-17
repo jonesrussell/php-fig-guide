@@ -2,11 +2,14 @@
 
 declare(strict_types=1);
 
+// phpcs:disable PSR1.Files.SideEffects.FoundWithSymbols
+
 namespace JonesRussell\PhpFigGuide\PSR11;
 
-// Declare the namespace
-
 require_once __DIR__ . '/../../vendor/autoload.php'; // Include the Composer autoloader
+
+// Include the ExampleContainer class
+use JonesRussell\PhpFigGuide\PSR11\ExampleContainer;
 
 /**
  * Example usage of the container.
