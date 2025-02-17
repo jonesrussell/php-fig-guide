@@ -48,6 +48,9 @@ class SmartLogger extends AbstractLogger
     /**
      * Logs with an arbitrary level.
      *
+     * This method formats the log message and writes it to the log file.
+     * It also sends critical and emergency messages to Slack.
+     *
      * @param  mixed              $level   Log level
      * @param  string|\Stringable $message Message to log
      * @param  array              $context Context data for interpolation
@@ -71,6 +74,9 @@ class SmartLogger extends AbstractLogger
 
     /**
      * Send a notification to Slack.
+     *
+     * This method sends a formatted message to the specified Slack webhook
+     * for critical and emergency log levels.
      *
      * @param string $level   Log level
      * @param string $message Message to send
@@ -97,6 +103,9 @@ class SmartLogger extends AbstractLogger
 
     /**
      * Interpolates context values into message placeholders.
+     *
+     * This method replaces placeholders in the message with actual values
+     * from the context array.
      *
      * @param  string $message Message with placeholders
      * @param  array  $context Values to replace placeholders

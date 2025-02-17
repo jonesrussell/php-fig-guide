@@ -10,14 +10,27 @@ use Psr\Log\LogLevel;
  * Class SmartLoggerTest
  * 
  * This class tests the SmartLogger functionality.
+ * It verifies that the logger correctly writes messages to a file,
+ * handles context, and logs messages at various levels.
+ *
+ * @category Logging_Test
+ * @package  JonesRussell\PhpFigGuide\Tests\PSR3
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
  */
 class SmartLoggerTest extends TestCase
 {
-    private $_logFile;
-    private $_logger;
+    private string $_logFile;
+    private SmartLogger $_logger;
 
     /**
      * Set up the test environment.
+     *
+     * This method initializes the SmartLogger instance and prepares
+     * a temporary log file for testing.
+     *
+     * @return void
      */
     protected function setUp(): void
     {
@@ -32,6 +45,10 @@ class SmartLoggerTest extends TestCase
 
     /**
      * Tear down the test environment.
+     *
+     * This method cleans up the temporary log file after each test.
+     *
+     * @return void
      */
     protected function tearDown(): void
     {
@@ -42,6 +59,11 @@ class SmartLoggerTest extends TestCase
 
     /**
      * Test that logs are written to the file.
+     *
+     * This test verifies that a log message is correctly written to
+     * the log file and that the log file contains the expected content.
+     *
+     * @return void
      */
     public function testLogWritesToFile(): void
     {
@@ -56,6 +78,11 @@ class SmartLoggerTest extends TestCase
 
     /**
      * Test logging with context.
+     *
+     * This test checks that the logger correctly interpolates context
+     * values into the log message.
+     *
+     * @return void
      */
     public function testLogWithContext(): void
     {
@@ -68,6 +95,11 @@ class SmartLoggerTest extends TestCase
 
     /**
      * Test different log levels.
+     *
+     * This test verifies that messages logged at various levels are
+     * correctly written to the log file.
+     *
+     * @return void
      */
     public function testLogLevels(): void
     {
