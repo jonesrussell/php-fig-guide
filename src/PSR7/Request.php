@@ -47,7 +47,7 @@ class Request extends Message implements RequestInterface
         $this->uri = $uri;
         $this->headers = $headers;
         $this->requestTarget = $this->buildRequestTarget();
- 
+
         // Debugging output
         error_log('Request URI: ' . (string)$this->uri);
     }

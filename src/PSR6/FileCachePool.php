@@ -23,7 +23,7 @@ use JonesRussell\PhpFigGuide\PSR6\CacheItem;
  * - Stores each cache item in a separate file
  * - Supports deferred saves
  * - Handles cache item expiration
- * 
+ *
  * @category Cache
  * @package  JonesRussell\PhpFigGuide\PSR6
  * @author   Russell Jones <jonesrussell42@gmail.com>
@@ -57,7 +57,7 @@ class FileCachePool implements CacheItemPoolInterface
         if (!is_dir($directory) && !mkdir($directory, 0777, true)) {
             throw new RuntimeException("Cannot create cache directory: {$directory}");
         }
-        
+
         $this->directory = $directory;
     }
 
@@ -258,7 +258,7 @@ class FileCachePool implements CacheItemPoolInterface
      *
      * @param  string $key The key to validate
      * @throws InvalidArgumentException If the key is invalid
-     *  
+     *
      * @return void
      */
     private function validateKey(string $key): void

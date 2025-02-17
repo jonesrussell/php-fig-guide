@@ -39,4 +39,4 @@ class DatabaseConnection
     {
         return $this->connectionMessage;
     }
-} 
+}

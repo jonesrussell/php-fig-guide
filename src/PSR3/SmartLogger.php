@@ -74,7 +74,7 @@ class SmartLogger extends AbstractLogger
      *
      * @param string $level   Log level
      * @param string $message Message to send
-     *  
+     *
      * @return void
      */
     private function notifySlack($level, $message)

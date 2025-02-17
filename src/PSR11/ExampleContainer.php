@@ -32,7 +32,7 @@ class ExampleContainer implements ContainerInterface
     public function __construct()
     {
         echo "Container created!\n\n"; // Print message when the container is created
-        
+
         $this->printServices("Initial Services in Container:"); // Print the services in the container
     }
 

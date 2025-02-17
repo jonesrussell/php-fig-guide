@@ -71,7 +71,8 @@ class Uri implements UriInterface
                     'query' => $this->query,
                     'fragment' => $this->fragment,
                     'authority' => $this->authority,
-                    ], true
+                    ],
+                    true
                 )
             );
         }

@@ -15,8 +15,8 @@ namespace JonesRussell\PhpFigGuide\PSR1;
  * Demonstrates:
  * - StudlyCaps for class name
  * - Constants in UPPER_CASE
- * - Methods in camelCase   
- * 
+ * - Methods in camelCase
+ *
  * @category User_Management
  * @package  JonesRussell\PhpFigGuide\PSR1
  * @author   Russell Jones <jonesrussell42@gmail.com>

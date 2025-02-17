@@ -26,4 +26,4 @@ class Logger
     {
         echo "Log: $message\n\n";
     }
-} 
+}

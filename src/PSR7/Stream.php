@@ -46,7 +46,7 @@ class Stream implements StreamInterface
 
     /**
      * Close the stream.
-     * 
+     *
      * @return void
      */
     public function close(): void
@@ -70,7 +70,7 @@ class Stream implements StreamInterface
      * Get the size of the stream.
      *
      * @return int|null The size of the stream or null if the size is unknown.
-     */ 
+     */
     public function getSize(): ?int
     {
         return fstat($this->resource)['size'] ?? null;
@@ -80,7 +80,7 @@ class Stream implements StreamInterface
      * Get the current position of the stream.
      *
      * @return int The current position of the stream.
-     */ 
+     */
     public function tell(): int
     {
         return ftell($this->resource);
@@ -90,7 +90,7 @@ class Stream implements StreamInterface
      * Check if the stream is at the end of the file.
      *
      * @return bool True if the stream is at the end of the file, false otherwise.
-     */ 
+     */
     public function eof(): bool
     {
         return feof($this->resource);
@@ -100,7 +100,7 @@ class Stream implements StreamInterface
      * Check if the stream is seekable.
      *
      * @return bool True if the stream is seekable, false otherwise.
-     */  
+     */
     public function isSeekable(): bool
     {
         return (bool)stream_get_meta_data($this->resource)['seekable'];
@@ -113,7 +113,7 @@ class Stream implements StreamInterface
      * @param int $whence The reference point for the offset.
      * @return void
      * @throws \RuntimeException if the stream is not seekable.
-     */ 
+     */
     public function seek(int $offset, int $whence = SEEK_SET): void
     {
         if (!fseek($this->resource, $offset, $whence)) {
@@ -123,7 +123,7 @@ class Stream implements StreamInterface
 
     /**
      * Rewind the stream to the beginning.
-     * 
+     *
      * @return void
      * @throws \RuntimeException if the stream is not seekable.
      */
@@ -136,7 +136,7 @@ class Stream implements StreamInterface
      * Check if the stream is writable.
      *
      * @return bool True if the stream is writable, false otherwise.
-     */ 
+     */
     public function isWritable(): bool
     {
         return (bool)stream_get_meta_data($this->resource)['mode'] === 'r+';
@@ -147,7 +147,7 @@ class Stream implements StreamInterface
      *
      * @param string $string The data to write to the stream.
      * @return int The number of bytes written to the stream.
-     */     
+     */
     public function write(string $string): int
     {
         return fwrite($this->resource, $string);
@@ -158,7 +158,7 @@ class Stream implements StreamInterface
      *
      * @param int $length The number of bytes to read from the stream.
      * @return string The data read from the stream.
-     */ 
+     */
     public function read(int $length): string
     {
         return fread($this->resource, $length);
@@ -168,7 +168,7 @@ class Stream implements StreamInterface
      * Get the contents of the stream.
      *
      * @return string The contents of the stream.
-     */ 
+     */
     public function getContents(): string
     {
         return stream_get_contents($this->resource);
@@ -178,7 +178,7 @@ class Stream implements StreamInterface
      * Check if the stream is readable.
      *
      * @return bool True if the stream is readable, false otherwise.
-     */ 
+     */
     public function isReadable(): bool
     {
         return (bool)stream_get_meta_data($this->resource)['mode'] === 'r';
@@ -189,7 +189,7 @@ class Stream implements StreamInterface
      *
      * @param string|null $key The key of the metadata to retrieve.
      * @return array|mixed|null The metadata or a specific key's value.
-     */ 
+     */
     public function getMetadata(?string $key = null)
     {
         $metadata = stream_get_meta_data($this->resource);

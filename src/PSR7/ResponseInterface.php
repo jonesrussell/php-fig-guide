@@ -18,4 +18,4 @@ use JonesRussell\PhpFigGuide\PSR7\MessageInterface;
 interface ResponseInterface extends MessageInterface
 {
     // Define any additional methods specific to your implementation if needed
-} 
+}

@@ -19,7 +19,7 @@ use DateTime;
  *
  * This class represents a single item in the cache system,
  * managing its value, expiration, and hit status.
- * 
+ *
  * @category Cache
  * @package  JonesRussell\PhpFigGuide\PSR6
  * @author   Russell Jones <jonesrussell42@gmail.com>
@@ -153,7 +153,7 @@ class CacheItem implements CacheItemInterface
      * Sets whether this cache item exists in the cache.
      *
      * @param bool $hit True if the item exists in cache
-     * 
+     *
      * @return void
      */
     public function setIsHit(bool $hit): void

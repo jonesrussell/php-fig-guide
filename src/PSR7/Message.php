@@ -20,7 +20,7 @@ use JonesRussell\PhpFigGuide\PSR7\StreamInterface;
  *
  * Implements common functionality for HTTP messages as defined in PSR-7.
  * This includes protocol version, headers, and message body handling.
- *  
+ *
  * @category Message
  * @package  JonesRussell\PhpFigGuide\PSR7
  * @author   Russell Jones <jonesrussell42@gmail.com>

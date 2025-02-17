@@ -21,7 +21,7 @@ use JonesRussell\PhpFigGuide\PSR7\StreamInterface;
  *
  * Represents an HTTP response message with status code and reason phrase.
  * Extends the base Message class to include response-specific functionality.
- * 
+ *
  * @category Response
  * @package  JonesRussell\PhpFigGuide\PSR7
  * @author   Russell Jones <jonesrussell42@gmail.com>

@@ -80,4 +80,4 @@ class ExampleClass
     {
         return "Hello, my name is {$this->name} and I am {$this->age} years old."; // Return the introduction string
     }
-} 
+}

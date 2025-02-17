@@ -13,7 +13,7 @@ class ExtendedCodingStyleGuide
     public const MAX_LINE_LENGTH = 80;
     public const NAMESPACE_BLANK_LINE = 'One blank line after namespace declaration';
     public const BRACE_POSITION = 'Opening braces must be on the same line as the declaration';
-    
+
     /**
      * Get the style guide as an associative array.
      *
