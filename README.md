@@ -11,6 +11,7 @@ Each standard is implemented in its own directory with examples and tests.
 - [PSR-6: Caching Interface](src/PSR6)
 - [PSR-7: HTTP Message Interfaces](src/PSR7)
 - [PSR-11: Container Interface](src/PSR11)
+- [PSR-12: Extended Coding Style Guide](src/PSR12)
 - More coming soon...
 
 ## Requirements
