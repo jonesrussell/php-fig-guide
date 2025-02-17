@@ -7,7 +7,7 @@
  * according to PSR-1 guidelines.
  */
 
- declare(strict_types=1);
+declare(strict_types=1);
 
 namespace JonesRussell\PhpFigGuide\PSR1;
 
@@ -29,11 +29,15 @@ class UserManager
 {
     /**
      * Version number of the implementation.
+     *
+     * @var string
      */
     public const VERSION = '1.0.0';
 
     /**
      * Error type constant for not found errors.
+     *
+     * @var string
      */
     public const ERROR_TYPE_NOT_FOUND = 'not_found';
 
@@ -43,7 +47,7 @@ class UserManager
      * @param  int $id The user ID to retrieve
      * @return array User data with 'id' and 'name' keys
      */
-    public function getUserById($id)
+    public function getUserById(int $id): array
     {
         // Implementation
         return ['id' => $id, 'name' => 'John Doe'];
