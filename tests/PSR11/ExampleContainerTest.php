@@ -28,7 +28,7 @@ use JonesRussell\PhpFigGuide\PSR11\NotFoundExceptionInterface;
  */
 class ExampleContainerTest extends TestCase
 {
-    private ExampleContainer $_container;
+    private ExampleContainer $container;
 
     /**
      * Set up the container before each test.
@@ -39,7 +39,7 @@ class ExampleContainerTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->_container = new ExampleContainer();
+        $this->container = new ExampleContainer();
     }
 
     /**
@@ -49,8 +49,8 @@ class ExampleContainerTest extends TestCase
      */
     public function testSetAndGetService(): void
     {
-        $this->_container->set('test.service', 'Test Service');
-        $this->assertEquals('Test Service', $this->_container->get('test.service'));
+        $this->container->set('test.service', 'Test Service');
+        $this->assertEquals('Test Service', $this->container->get('test.service'));
     }
 
     /**
@@ -60,9 +60,9 @@ class ExampleContainerTest extends TestCase
      */
     public function testHasService(): void
     {
-        $this->_container->set('test.service', 'Test Service');
-        $this->assertTrue($this->_container->has('test.service'));
-        $this->assertFalse($this->_container->has('non.existent.service'));
+        $this->container->set('test.service', 'Test Service');
+        $this->assertTrue($this->container->has('test.service'));
+        $this->assertFalse($this->container->has('non.existent.service'));
     }
 
     /**
@@ -74,7 +74,7 @@ class ExampleContainerTest extends TestCase
     {
         $this->expectException(\Exception::class);
         $this->expectException(NotFoundExceptionInterface::class);
-        $this->_container->get('non.existent.service');
+        $this->container->get('non.existent.service');
     }
 
     /**
@@ -84,7 +84,7 @@ class ExampleContainerTest extends TestCase
      */
     public function testSetServiceWithDependency(): void
     {
-        $this->_container->set(
+        $this->container->set(
             'database',
             new class {
                 public function connect()
@@ -94,7 +94,7 @@ class ExampleContainerTest extends TestCase
             }
         );
 
-        $dbService = $this->_container->get('database');
+        $dbService = $this->container->get('database');
         $this->assertEquals("Database connected!", $dbService->connect());
     }
 
@@ -105,9 +105,9 @@ class ExampleContainerTest extends TestCase
      */
     public function testServiceOverwriting(): void
     {
-        $this->_container->set('test.service', 'First Service');
-        $this->_container->set('test.service', 'Second Service');
-        $this->assertEquals('Second Service', $this->_container->get('test.service'));
+        $this->container->set('test.service', 'First Service');
+        $this->container->set('test.service', 'Second Service');
+        $this->assertEquals('Second Service', $this->container->get('test.service'));
     }
 
     /**
@@ -117,9 +117,9 @@ class ExampleContainerTest extends TestCase
      */
     public function testGetAllServices(): void
     {
-        $this->_container->set('service1', 'Service 1');
-        $this->_container->set('service2', 'Service 2');
-        $services = $this->_container->getServices();
+        $this->container->set('service1', 'Service 1');
+        $this->container->set('service2', 'Service 2');
+        $services = $this->container->getServices();
         $this->assertCount(2, $services);
         $this->assertArrayHasKey('service1', $services);
         $this->assertArrayHasKey('service2', $services);
