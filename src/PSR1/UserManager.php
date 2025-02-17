@@ -7,6 +7,8 @@
  * according to PSR-1 guidelines.
  */
 
+ declare(strict_types=1);
+
 namespace JonesRussell\PhpFigGuide\PSR1;
 
 /**
@@ -28,12 +30,12 @@ class UserManager
     /**
      * Version number of the implementation.
      */
-    const VERSION = '1.0.0';
+    public const VERSION = '1.0.0';
 
     /**
      * Error type constant for not found errors.
      */
-    const ERROR_TYPE_NOT_FOUND = 'not_found';
+    public const ERROR_TYPE_NOT_FOUND = 'not_found';
 
     /**
      * Get user information by ID.

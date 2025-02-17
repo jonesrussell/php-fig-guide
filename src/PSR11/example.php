@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JonesRussell\PhpFigGuide\PSR11;
 
 // Declare the namespace
