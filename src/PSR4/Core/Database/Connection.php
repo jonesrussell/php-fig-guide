@@ -16,10 +16,17 @@ namespace JonesRussell\PhpFigGuide\PSR4\Core\Database;
  */
 class Connection
 {
+    /**
+     * Database configuration array.
+     *
+     * @var array
+     */
     private array $config;
 
     /**
      * Constructor
+     *
+     * Initializes the database connection with the provided configuration.
      *
      * @param array $config Database configuration array
      */
@@ -27,4 +34,6 @@ class Connection
     {
         $this->config = $config;
     }
+
+    // Additional methods for database operations can be added here
 }

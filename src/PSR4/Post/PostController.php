@@ -26,6 +26,10 @@ class PostController
     /**
      * Get the index response.
      *
+     * This method returns a simple response indicating that the blog
+     * is ready for use. It can be expanded to include more complex
+     * logic in the future.
+     *
      * @return array Response data
      */
     public function index(): array
