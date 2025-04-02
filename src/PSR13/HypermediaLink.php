@@ -141,7 +141,7 @@ class HypermediaLink implements EvolvableLinkInterface
      * Create a new instance with an additional attribute.
      *
      * @param string $attribute The attribute name
-     * @param mixed  $value    The attribute value
+     * @param mixed  $value     The attribute value
      * @return static
      */
     public function withAttribute(string $attribute, mixed $value): static

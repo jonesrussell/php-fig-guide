@@ -5,9 +5,16 @@ declare(strict_types=1);
 namespace JonesRussell\PhpFigGuide\PSR12;
 
 /**
- * ExampleClass demonstrates a properly formatted class according to PSR-12.
- * This class represents a person with a name and age, providing methods
- * to get and set these properties, as well as a method to introduce the person.
+ * Example class demonstrating PSR-12 coding style.
+ *
+ * This class shows proper formatting, spacing, and documentation
+ * according to PSR-12 extended coding style guidelines.
+ *
+ * @category Examples
+ * @package  JonesRussell\PhpFigGuide\PSR12
+ * @author   Russell Jones <jonesrussell42@gmail.com>
+ * @license  MIT https://opensource.org/licenses/MIT
+ * @link     https://github.com/jonesrussell/php-fig-guide
  */
 class ExampleClass
 {
@@ -21,7 +28,7 @@ class ExampleClass
      * Constructor to initialize the ExampleClass.
      *
      * @param string $name The name of the person.
-     * @param int $age The age of the person.
+     * @param int    $age  The age of the person.
      */
     public function __construct(string $name, int $age)
     {

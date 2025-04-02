@@ -56,9 +56,11 @@ class HypermediaLinkProvider implements LinkProviderInterface
      */
     public function getLinksByRel($rel): array
     {
-        return array_values(array_filter(
-            $this->links,
-            fn(LinkInterface $link) => in_array($rel, $link->getRels())
-        ));
+        return array_values(
+            array_filter(
+                $this->links,
+                fn(LinkInterface $link) => in_array($rel, $link->getRels())
+            )
+        );
     }
-} 
+}
