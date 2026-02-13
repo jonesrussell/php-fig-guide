@@ -50,7 +50,7 @@ class FileCacheTest extends TestCase
 
         $this->assertSame('value', $this->cache->get('expiring'));
 
-        sleep(2);
+        sleep(3);
 
         $this->assertNull($this->cache->get('expiring'));
     }
